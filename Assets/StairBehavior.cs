@@ -10,7 +10,7 @@ public class StairBehavior : MonoBehaviour {
 		var goList = new System.Collections.Generic.List<GameObject>();
 		GameObject[] allObjects = FindObjectsOfType<GameObject>();
 		foreach(GameObject obj in allObjects){
-			if(obj.tag != "Player" && obj.activeInHierarchy) {
+			if(obj.tag != "Player" && obj.activeInHierarchy && obj.transform.parent == null) {
 				goList.Add(obj);
 			}
 		}

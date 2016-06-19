@@ -4,6 +4,7 @@ using System.Collections;
 public class StampingScript : MonoBehaviour {
 
 	public bool stamped;
+	public string suspectName;
 	// Use this for initialization
 	void Start () {
 		stamped = false;

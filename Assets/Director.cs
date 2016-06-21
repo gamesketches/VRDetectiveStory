@@ -1,7 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml;
+using System.Xml.Serialization;
 
 public class Director : MonoBehaviour {
+
+	public class Beat {
+		public string character;
+		public string motion;
+		public string audioClip;
+		public float x;
+		public float y;
+	}
+
+	public class Scene { 
+		[XmlAttribute("Beat")]
+		public Beat[] beats;
+	}
 
 	public int layer;
 	private GameObject[] allObjects;

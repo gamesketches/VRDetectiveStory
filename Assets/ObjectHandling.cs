@@ -31,13 +31,13 @@ public class ObjectHandling : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if(other.gameObject.tag == "holdable") {
+		if(ConvertTagToInt(other.gameObject.tag) > 0) {
 			intersectingObject = other.gameObject;
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
-		if(other.gameObject.tag == "holdable") {
+		if(ConvertTagToInt(other.gameObject.tag) > 0) {
 			intersectingObject = null;
 		}
 	}
@@ -55,6 +55,9 @@ public class ObjectHandling : MonoBehaviour {
 			case "Player":
 			case "GameController":
 				return false;
+			case "holdable":
+			case "theater":
+				return true;
 		}
 		return false;
 	}
@@ -69,6 +72,10 @@ public class ObjectHandling : MonoBehaviour {
 			case "Player":
 			case "GameController":
 				return 0;
+			case "holdable":
+				return 1;
+			case "theater":
+				return 2;
 		}
 		return 0;
 	}

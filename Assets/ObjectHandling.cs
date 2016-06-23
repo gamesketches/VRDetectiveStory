@@ -75,7 +75,7 @@ public class ObjectHandling : MonoBehaviour {
 			case "holdable":
 				return 1;
 			case "theater":
-				return 2;
+				return 8;
 		}
 		return 0;
 	}

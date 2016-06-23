@@ -25,6 +25,7 @@ public class Director : MonoBehaviour {
 		layer = 0;
 		allObjects = FindObjectsOfType<GameObject>();
 		ChangeScene(0);
+		ChangeScene(8);
 	}
 	
 	// Update is called once per frame

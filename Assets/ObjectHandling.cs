@@ -6,6 +6,7 @@ public class ObjectHandling : MonoBehaviour {
 	GameObject intersectingObject;
 	Director director;
 	int controllerIndex;
+	float lastTimeAngle;
 	// Use this for initialization
 	void Start () {
 		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
@@ -16,6 +17,15 @@ public class ObjectHandling : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		var device = SteamVR_Controller.Input(controllerIndex);
+		if(intersectingObject.transform.parent == gameObject.transform) {
+			if(device.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad)) {
+				lastTimeAngle = -1;
+			}
+			else if(device.GetTouch(SteamVR_Controller.ButtonMask.Touchpad)) {
+				Vector2 coordinates = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
+				lastTimeAngle = AdjustCurrentTime(Mathf.Rad2Deg * Mathf.Atan(coordinates.y / coordinates.x));
+			}
+		}
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
@@ -40,6 +50,14 @@ public class ObjectHandling : MonoBehaviour {
 		if(ConvertTagToInt(other.gameObject.tag) > 0) {
 			intersectingObject = null;
 		}
+	}
+
+	void AdjustCurrentTime(float newTime) {
+		if(lastTimeAngle == -1) {
+			return newTime;
+		}
+		intersectingObject.GetComponent<TimeShift>().currentTime = (newTime - lastTimeAngle) / 360;
+		return newTime;
 	}
 
 	bool ObjectHasSceneChangeTag() {

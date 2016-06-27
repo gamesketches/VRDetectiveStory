@@ -52,7 +52,7 @@ public class ObjectHandling : MonoBehaviour {
 		}
 	}
 
-	void AdjustCurrentTime(float newTime) {
+	float AdjustCurrentTime(float newTime) {
 		if(lastTimeAngle == -1) {
 			return newTime;
 		}

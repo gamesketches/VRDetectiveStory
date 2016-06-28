@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using System.IO;
 
 public class Director : MonoBehaviour {
+
+	public Script screenplay;
 
 	public class Beat {
 		public string character;
@@ -14,8 +18,17 @@ public class Director : MonoBehaviour {
 	}
 
 	public class Scene { 
-		[XmlAttribute("Beat")]
+		[XmlAttribute("name")]
+		public string sceneName;
+		[XmlElement("Beat")]
 		public Beat[] beats;
+	}
+
+	[XmlRoot("Root")]
+	public class Script {
+		[XmlArray("Script")]
+		[XmlArrayItem("Scene")]
+		public List<Scene> scenes = new List<Scene>();
 	}
 
 	public int layer;
@@ -23,9 +36,15 @@ public class Director : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		layer = 0;
+		screenplay = new Script();
+		var serializer = new XmlSerializer(typeof(Script));
+		TextAsset sceneData = Resources.Load("playbook") as TextAsset;
+		TextReader reader = new StringReader(sceneData.text);
+		screenplay = (Script)serializer.Deserialize(reader);
 		allObjects = FindObjectsOfType<GameObject>();
 		ChangeScene(0);
-		ChangeScene(8);
+
+		Debug.Log(screenplay.scenes[0].beats[0]);
 	}
 	
 	// Update is called once per frame

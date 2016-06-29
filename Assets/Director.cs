@@ -44,6 +44,19 @@ public class Director : MonoBehaviour {
 		allObjects = FindObjectsOfType<GameObject>();
 		ChangeScene(0);
 
+		XmlDocument xmlDoc = new XmlDocument();
+
+		xmlDoc.LoadXml(sceneData.text);
+
+		XmlNode node = xmlDoc.ChildNodes[1].FirstChild.FirstChild.FirstChild;
+
+		Debug.Log(xmlDoc.ChildNodes[1].FirstChild.OuterXml);
+
+		foreach(XmlNode child in node.ChildNodes) {
+			Debug.Log(child.InnerXml);
+		}
+		Debug.Log(node.InnerXml);
+
 		Debug.Log(screenplay.scenes[0].beats[0]);
 	}
 	

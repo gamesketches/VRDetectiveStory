@@ -26,7 +26,7 @@ public class ObjectHandling : MonoBehaviour {
 			}
 			else if(device.GetTouch(SteamVR_Controller.ButtonMask.Touchpad)) {
 				Vector2 coordinates = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-				lastTimeAngle = AdjustCurrentTime(Mathf.Rad2Deg * Mathf.Atan2(coordinates.x, coordinates.y));
+				lastTimeAngle = AdjustCurrentTime(coordinates.x, coordinates.y);
 			}
 		}
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
@@ -55,12 +55,13 @@ public class ObjectHandling : MonoBehaviour {
 		}
 	}
 
-	float AdjustCurrentTime(float newTime) {
+	float AdjustCurrentTime(float xCoord, float yCoord) {
+		float newTime = Mathf.Rad2Deg * Mathf.Atan2(yCoord, xCoord);
+		if(yCoord < 0) {
+		newTime += 360f;
+		}
 		if(lastTimeAngle == -1) {
 			return newTime;
-		}
-		if(newTime < 0) {
-			newTime += 360;
 		}
 		intersectingObject.GetComponent<TimeShift>().currentTime = (newTime - lastTimeAngle) / 360;
 		return newTime;

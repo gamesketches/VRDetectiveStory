@@ -33,9 +33,16 @@ public class Director : MonoBehaviour {
 
 	public int layer;
 	private GameObject[] allObjects;
+	private string[] animations;
 	// Use this for initialization
 	void Start () {
 		layer = 0;
+		List<string> tempList = new List<string>();
+		foreach(AnimationClip clip in GameObject.Find("walking").GetComponent<Animator>().runtimeAnimatorController.animationClips) {
+			tempList.Add(clip.name);
+			Debug.Log(clip.name);
+		}
+		animations = tempList.ToArray();
 		screenplay = new Script();
 		var serializer = new XmlSerializer(typeof(Script));
 		TextAsset sceneData = Resources.Load("playbook") as TextAsset;
@@ -88,14 +95,14 @@ public class Director : MonoBehaviour {
 	}
 
 	IEnumerator PlayBeat(XmlNode Beat) {
-		GameObject character = GameObject.Find("walking");
+		GameObject character = GameObject.Find(Beat.ChildNodes[0].InnerText);
 		Animator anim = character.GetComponent<Animator>();
 		anim.SetBool("finished", false);
 		AudioSource audio = GetComponent<AudioSource>();
 		AudioClip voiceClip = Resources.Load<AudioClip>("VoiceClips/" + Beat.ChildNodes[2].InnerText);
 		audio.clip = voiceClip;
 		audio.Play();
-		anim.SetInteger("animationId", 2);
+		anim.SetInteger("animationId", System.Array.IndexOf(animations, Beat.ChildNodes[1].InnerText));
 		float t = 0;
 		float animationTime = anim.GetCurrentAnimatorStateInfo(0).length;
 		Vector3 startPosition = character.transform.position;

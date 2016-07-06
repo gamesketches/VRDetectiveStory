@@ -10,9 +10,9 @@
       <y>1.0</y>
     </Beat>
     <Beat>
-    	<Character>sample</Character>
+    	<Character>walking</Character>
     	<Motion>jump</Motion>
-    	<audioClip>Line2</audioClip>
+    	<audioClip>Line1</audioClip>
     	<x>3.0</x>
     	<y>0.0</y>
     </Beat>

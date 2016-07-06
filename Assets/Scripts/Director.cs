@@ -90,7 +90,9 @@ public class Director : MonoBehaviour {
 		//create characters here
 		GameObject character = GameObject.Find("walking");
 
-		StartCoroutine(PlayBeat(theScene.FirstChild));
+		foreach(XmlNode beat in theScene.ChildNodes) {
+			StartCoroutine(PlayBeat(beat));
+		}
 
 	}
 

@@ -97,11 +97,12 @@ public class Director : MonoBehaviour {
 		audio.Play();
 		anim.SetInteger("animationId", 2);
 		float t = 0;
+		float animationTime = anim.GetCurrentAnimatorStateInfo(0).length;
 		Vector3 startPosition = character.transform.position;
 		Vector3 targetPosition = startPosition;
-		targetPosition.x += int.Parse(Beat.ChildNodes[3].InnerText);
-		targetPosition.z += int.Parse(Beat.ChildNodes[4].InnerText);
-		while(t <= 0) {
+		targetPosition.x += float.Parse(Beat.ChildNodes[3].InnerText);
+		targetPosition.z += float.Parse(Beat.ChildNodes[4].InnerText);
+		while(t <= animationTime) {
 			character.transform.position = Vector3.Lerp(startPosition, targetPosition, t);
 			t += Time.deltaTime;
 			yield return null;

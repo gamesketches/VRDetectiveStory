@@ -20,7 +20,7 @@ public class ObjectHandling : MonoBehaviour {
 			return;
 		}
 		var device = SteamVR_Controller.Input(controllerIndex);
-		if(intersectingObject.transform.parent == gameObject.transform) {
+		if(intersectingObject.transform.parent == gameObject.transform.parent) {
 			if(device.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad)) {
 				lastTimeAngle = -1;
 			}
@@ -63,7 +63,7 @@ public class ObjectHandling : MonoBehaviour {
 		if(lastTimeAngle == -1) {
 			return newTime;
 		}
-		intersectingObject.GetComponent<TimeShift>().currentTime = (newTime - lastTimeAngle) / 360;
+		intersectingObject.GetComponent<TimeShift>().currentTime = newTime / 360;
 		return newTime;
 	}
 

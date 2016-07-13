@@ -5,6 +5,7 @@ public class TimeShift : MonoBehaviour {
 
 	Material materialForTest;
 	public float currentTime;
+	public float targetRangeBottom, targetRangeTop;
 	delegate void UpdateFunction();
 	UpdateFunction updateFunction;
 	int[] triangleArray;
@@ -48,5 +49,9 @@ public class TimeShift : MonoBehaviour {
 		} 
 		Debug.Log(triangleArray.Length);
 		mesh.SetTriangles(tempArray, 0);
+	}
+
+	public bool withinTargetRange() {
+		return currentTime < targetRangeTop && currentTime > targetRangeBottom;
 	}
 }

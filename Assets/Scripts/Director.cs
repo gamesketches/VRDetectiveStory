@@ -62,9 +62,6 @@ public class Director : MonoBehaviour {
 		foreach(XmlNode child in node.ChildNodes) {
 			Debug.Log(child.InnerXml);
 		}
-		Debug.Log(node.InnerXml);
-
-		Debug.Log(screenplay.scenes[0].beats[0]);
 		PlayScene(xmlDoc.ChildNodes[1].FirstChild.FirstChild);
 	}
 	

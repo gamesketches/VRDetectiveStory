@@ -32,7 +32,8 @@ public class StairBehavior : MonoBehaviour {
 				foreach(GameObject obj in sceneObjects) {
 				Vector3 temp = obj.transform.position;
 				temp.y = temp.y - dif;
-				obj.transform.position = temp;
+				//obj.transform.position = temp;
+				StartCoroutine(StairMovement(obj.transform, temp));
 			}
 			}
 			else if(targetY < deltaY) {
@@ -41,6 +42,7 @@ public class StairBehavior : MonoBehaviour {
 				Vector3 temp = obj.transform.position;
 				temp.y = temp.y + dif;
 				obj.transform.position = temp;
+				StartCoroutine(StairMovement(obj.transform, temp));
 			}
 			}
 		}
@@ -49,6 +51,19 @@ public class StairBehavior : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		if(other.gameObject.tag == "Player") {
 			entered = false;
+		}
+	}
+
+	IEnumerator StairMovement(Transform oldPosition, Vector3 newPosition) {
+		float t = 0;
+		Vector3 oldVec3 = oldPosition.position;
+		while(t < 1) {
+			oldPosition.position = Vector3.Lerp(oldVec3, newPosition, t);
+//										new Vector3(Mathf.SmoothStep(oldVec3.x, newPosition.x, t),
+//										Mathf.SmoothStep(oldVec3.y, newPosition.y, t),
+//										Mathf.SmoothStep(oldVec3.z, newPosition.z, t));
+			t += Time.deltaTime * 3;
+			yield return null;
 		}
 	}
 }

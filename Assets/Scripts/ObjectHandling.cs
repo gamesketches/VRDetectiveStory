@@ -34,7 +34,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.parent = null;
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
 				if(ObjectHasSceneChangeTag() && ConvertTagToInt(intersectingObject.tag) != director.layer) {
-					director.ChangeScene(ConvertTagToInt(intersectingObject.tag));
+					director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
 				}
 			}
 			else {
@@ -63,7 +63,11 @@ public class ObjectHandling : MonoBehaviour {
 		if(lastTimeAngle == -1) {
 			return newTime;
 		}
-		intersectingObject.GetComponent<TimeShift>().currentTime = newTime / 360;
+		TimeShift timeShift = intersectingObject.GetComponent<TimeShift>();
+		timeShift.currentTime = newTime / 360;
+		if(timeShift.withinTargetRange()) {
+			director.ChangeScene(ConvertTagToInt("theater"));//intersectingObject.tag));
+		}
 		return newTime;
 	}
 

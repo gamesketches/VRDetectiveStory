@@ -50,7 +50,6 @@ public class TimeShift : MonoBehaviour {
 		for(int i = 0; i < tempArray.Length; i++) {
 			tempArray[i] = triangleArray[i];
 		} 
-		Debug.Log(triangleArray.Length);
 		mesh.SetTriangles(tempArray, 0);
 	}
 

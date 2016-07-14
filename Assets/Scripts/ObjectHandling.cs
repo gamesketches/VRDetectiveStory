@@ -67,7 +67,7 @@ public class ObjectHandling : MonoBehaviour {
 		TimeShift timeShift = intersectingObject.GetComponent<TimeShift>();
 		timeShift.currentTime = newTime / 360;
 		if(timeShift.withinTargetRange()) {
-			director.ChangeScene(ConvertTagToInt("theater"));//intersectingObject.tag));
+			SceneManager.LoadScene(intersectingObject.tag);//director.ChangeScene(ConvertTagToInt("theater"));//intersectingObject.tag));
 		}
 		return newTime;
 	}
@@ -106,6 +106,8 @@ public class ObjectHandling : MonoBehaviour {
 				return 1;
 			case "theater":
 				return 8;
+			case "outside":
+				return 9;
 		}
 		return 0;
 	}

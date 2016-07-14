@@ -38,10 +38,10 @@ public class Director : MonoBehaviour {
 	void Start () {
 		layer = 0;
 		List<string> tempList = new List<string>();
-		foreach(AnimationClip clip in GameObject.Find("walking").GetComponent<Animator>().runtimeAnimatorController.animationClips) {
+/*		foreach(AnimationClip clip in GameObject.Find("walking").GetComponent<Animator>().runtimeAnimatorController.animationClips) {
 			tempList.Add(clip.name);
 			Debug.Log(clip.name);
-		}
+		}*/
 		animations = tempList.ToArray();
 		screenplay = new Script();
 		var serializer = new XmlSerializer(typeof(Script));
@@ -62,7 +62,7 @@ public class Director : MonoBehaviour {
 		foreach(XmlNode child in node.ChildNodes) {
 			Debug.Log(child.InnerXml);
 		}
-		PlayScene(xmlDoc.ChildNodes[1].FirstChild.FirstChild);
+		//PlayScene(xmlDoc.ChildNodes[1].FirstChild.FirstChild);
 	}
 	
 	// Update is called once per frame

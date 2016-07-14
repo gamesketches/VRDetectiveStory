@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ObjectHandling : MonoBehaviour {
 
@@ -34,7 +35,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.parent = null;
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
 				if(ObjectHasSceneChangeTag() && ConvertTagToInt(intersectingObject.tag) != director.layer) {
-					director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
+					SceneManager.LoadScene(intersectingObject.tag);//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
 				}
 			}
 			else {

@@ -12,15 +12,18 @@ public class TimeShift : MonoBehaviour {
 	Mesh mesh;
 	// Use this for initialization
 	void Start () {
-		currentTime = 1.0f;
 		materialForTest = GetComponent<Renderer>().material;
 		mesh = GetComponent<MeshFilter>().sharedMesh;
 		switch(gameObject.name) {
+			case "wholepaper":
 			case "tornpaper":
 				updateFunction = PaperUpdate;
 				triangleArray = mesh.triangles;
 				break;
-			case "Cube":
+			case "rose":
+				updateFunction = TestCubeUpdate;
+				break;
+			default:
 				updateFunction = TestCubeUpdate;
 				break;
 		}
@@ -47,11 +50,16 @@ public class TimeShift : MonoBehaviour {
 		for(int i = 0; i < tempArray.Length; i++) {
 			tempArray[i] = triangleArray[i];
 		} 
-		Debug.Log(triangleArray.Length);
 		mesh.SetTriangles(tempArray, 0);
 	}
 
 	public bool withinTargetRange() {
 		return currentTime < targetRangeTop && currentTime > targetRangeBottom;
+	}
+
+	void OnApplicationQuit() {
+		if(triangleArray != null) {
+			mesh.SetTriangles(triangleArray, 0);
+		}
 	}
 }

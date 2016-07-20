@@ -15,10 +15,10 @@ public class TheaterDialogueRunner : MonoBehaviour {
 	
 	IEnumerator PlayAudio() {
 		yield return new WaitForSeconds(1.0f);
-		foreach(AudioClip clip in audioClips) {
-			audio.clip = clip;
+		for(int i = 1; i < audioClips.Length; i++) {
+			audio.clip = audioClips[i];
 			audio.Play();
-			yield return new WaitForSeconds(timeBetweenClips + clip.length);
+			yield return new WaitForSeconds(timeBetweenClips + audio.clip.length);
 		}
 		
 	}

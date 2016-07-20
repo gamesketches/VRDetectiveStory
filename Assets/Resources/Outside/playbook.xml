@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Script>
+  <Scene name="theatre">
+    <Beat>
+      <Character>Anna</Character>
+      <Motion>talk</Motion>
+      <audioClip>Line1</audioClip>
+      <x>0.0</x>
+      <y>0.0</y>
+    </Beat>
+    <Beat>
+    	<Character>Anna</Character>
+    	<Motion>Walk</Motion>
+    	<audioClip>Line1</audioClip>
+    	<x>-13.94</x>
+    	<y>5.4</y>
+    </Beat>
+    <Beat>
+    	<Character>Anna</Character>
+    	<Motion>PickUpObject</Motion>
+    	<audioClip>Line1</audioClip>
+    	<x>0</x>
+    	<y>0</y>
+    </Beat>
+    <Beat>
+    	<Character>Anna</Character>
+    	<Motion>LookAroundNervously</Motion>
+    	<audioClip>Line1</audioClip>
+    	<x>0</x>
+    	<y>0</y>
+    </Beat>
+    <Beat>
+    	<Character>Stalker</Character>
+    	<Motion>Walk</Motion>
+    	<audioClip>Line1</audioClip>
+    	<x>-15.642</x>
+    	<y>-6.91</y>
+    </Beat>
+  </Scene>
+</Script>
+</Root>

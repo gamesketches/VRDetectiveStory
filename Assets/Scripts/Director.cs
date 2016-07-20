@@ -35,9 +35,11 @@ public class Director : MonoBehaviour {
 	public int layer;
 	private GameObject[] allObjects;
 	private string[] animations;
+	private int beatNum;
 	// Use this for initialization
 	void Start () {
 		layer = 0;
+		beatNum = 0;
 		List<string> tempList = new List<string>();
 /*		foreach(AnimationClip clip in GameObject.Find("walking").GetComponent<Animator>().runtimeAnimatorController.animationClips) {
 			tempList.Add(clip.name);
@@ -47,7 +49,7 @@ public class Director : MonoBehaviour {
 		screenplay = new Script();
 		var serializer = new XmlSerializer(typeof(Script));
 		string scenePath = SceneManager.GetActiveScene().name;
-		TextAsset sceneData = Resources.Load("playbook") as TextAsset;
+		TextAsset sceneData = Resources.Load(scenePath + "/playbook") as TextAsset;
 		TextReader reader = new StringReader(sceneData.text);
 		screenplay = (Script)serializer.Deserialize(reader);
 		allObjects = FindObjectsOfType<GameObject>();
@@ -64,7 +66,7 @@ public class Director : MonoBehaviour {
 		foreach(XmlNode child in node.ChildNodes) {
 			Debug.Log(child.InnerXml);
 		}
-		//PlayScene(xmlDoc.ChildNodes[1].FirstChild.FirstChild);
+		PlayScene(xmlDoc.ChildNodes[1].FirstChild.FirstChild);
 	}
 	
 	// Update is called once per frame
@@ -87,23 +89,25 @@ public class Director : MonoBehaviour {
 
 	void PlayScene(XmlNode theScene) {
 		//create characters here
-		GameObject character = GameObject.Find("walking");
+		//GameObject character = GameObject.Find("walking");
 
-		foreach(XmlNode beat in theScene.ChildNodes) {
-			StartCoroutine(PlayBeat(beat));
-		}
+	//	foreach(XmlNode beat in theScene.ChildNodes) {
+			StartCoroutine(PlayBeat(theScene.ChildNodes[0]));
+	//	}
 
 	}
 
 	IEnumerator PlayBeat(XmlNode Beat) {
 		GameObject character = GameObject.Find(Beat.ChildNodes[0].InnerText);
+		Debug.Log(character.name);
 		Animator anim = character.GetComponent<Animator>();
 		anim.SetBool("finished", false);
-		AudioSource audio = GetComponent<AudioSource>();
+		/*AudioSource audio = GetComponent<AudioSource>();
 		AudioClip voiceClip = Resources.Load<AudioClip>("VoiceClips/" + Beat.ChildNodes[2].InnerText);
 		audio.clip = voiceClip;
 		audio.Play();
-		anim.SetInteger("animationId", System.Array.IndexOf(animations, Beat.ChildNodes[1].InnerText));
+		*/
+		anim.SetInteger("animationId", anim.GetInteger("animationId") + 1);//System.Array.IndexOf(animations, Beat.ChildNodes[1].InnerText));
 		float t = 0;
 		float animationTime = anim.GetCurrentAnimatorStateInfo(0).length;
 		Vector3 startPosition = character.transform.position;

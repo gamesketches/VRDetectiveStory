@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class ObjectHandling : MonoBehaviour {
 
-	GameObject intersectingObject;
+	public GameObject intersectingObject;
 	Director director;
 	int controllerIndex;
 	float lastTimeAngle;

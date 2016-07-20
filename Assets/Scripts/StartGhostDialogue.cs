@@ -3,14 +3,17 @@ using System.Collections;
 
 public class StartGhostDialogue : MonoBehaviour {
 
-	public AudioClip dialogue;
+	AudioClip[] dialogue;
 	public float lookTime;
-	private float lookedAtBedForTime;
+	private float lookedAtObjectForTime;
+	SpiritGuideController spiritGuideController;
 	AudioSource audio;
 	// Use this for initialization
 	void Start () {
+		dialogue = Resources.LoadAll<AudioClip>("Apartment/Sound");
 		audio = GetComponent<AudioSource>();
-		lookedAtBedForTime = 0;
+		lookedAtObjectForTime = 0;
+		spiritGuideController = GameObject.Find("SpiritGuide").GetComponent<SpiritGuideController>();
 	}
 	
 	// Update is called once per frame
@@ -19,16 +22,28 @@ public class StartGhostDialogue : MonoBehaviour {
 		RaycastHit hit;
 
 		if(Physics.Raycast(ray, out hit, 5f)) {
-			if(hit.collider.tag == "bed") {
-				lookedAtBedForTime += Time.deltaTime;
-				if(lookedAtBedForTime > lookTime) {
-				audio.clip = dialogue;
-				audio.Play();
+			if(hit.collider.gameObject.layer == 9) {
+				lookedAtObjectForTime += Time.deltaTime;
+				if(lookedAtObjectForTime > lookTime) {
+					switch(hit.collider.tag) {
+						case "bed": 
+							audio.clip = dialogue[0];
+							audio.Play();
+							break;
+						case "theater":
+							audio.clip = dialogue[2];
+							break;
+					}
+
+					spiritGuideController.Appear(gameObject.transform.position + new Vector3(0, 0, 0.5f), audio.clip.length);
+				}
+				else {
+					lookedAtObjectForTime = 0;
 				}
 			}
-		}
-		else {
-			lookedAtBedForTime = 0;
+			else {
+				lookedAtObjectForTime = 0;
+			}
 		}
 	}
 }

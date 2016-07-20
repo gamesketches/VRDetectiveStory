@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Director : MonoBehaviour {
 
@@ -45,6 +46,7 @@ public class Director : MonoBehaviour {
 		animations = tempList.ToArray();
 		screenplay = new Script();
 		var serializer = new XmlSerializer(typeof(Script));
+		string scenePath = SceneManager.GetActiveScene().name;
 		TextAsset sceneData = Resources.Load("playbook") as TextAsset;
 		TextReader reader = new StringReader(sceneData.text);
 		screenplay = (Script)serializer.Deserialize(reader);

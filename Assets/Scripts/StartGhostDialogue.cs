@@ -27,12 +27,19 @@ public class StartGhostDialogue : MonoBehaviour {
 				if(lookedAtObjectForTime > lookTime) {
 					switch(hit.collider.tag) {
 						case "bed": 
-							audio.clip = dialogue[0];
-							audio.Play();
-							break;
+							if(!spiritGuideController.flags["bed"]) {
+								audio.clip = dialogue[0];
+								audio.Play();
+								spiritGuideController.flags["bed"] = true;
+								}
+								break;
 						case "theater":
-							audio.clip = dialogue[2];
+							if(!spiritGuideController.flags["theater"]){
+								audio.clip = dialogue[2];
+								spiritGuideController.flags["theater"] = true;
+								}
 							break;
+							
 					}
 
 					spiritGuideController.Appear(gameObject.transform.position + new Vector3(0, 0, 0.5f), audio.clip.length);

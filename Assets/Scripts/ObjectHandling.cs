@@ -11,7 +11,9 @@ public class ObjectHandling : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
-		intersectingObject = null;
+		if(SceneManager.GetActiveScene().name == "main") {
+			intersectingObject = null;
+			}
 		controllerIndex = (int)gameObject.transform.parent.gameObject.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
@@ -33,9 +35,10 @@ public class ObjectHandling : MonoBehaviour {
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
-				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
-				if(ObjectHasSceneChangeTag() && ConvertTagToInt(intersectingObject.tag) != director.layer) {
-					SceneManager.LoadScene(intersectingObject.tag);//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
+				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
+					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
+					SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
+					}
 				}
 			}
 			else {

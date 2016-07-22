@@ -21,6 +21,7 @@ public class TimeShift : MonoBehaviour {
 				triangleArray = mesh.triangles;
 				break;
 			case "rose":
+			case "brokenrose":
 				updateFunction = TestCubeUpdate;
 				break;
 			default:

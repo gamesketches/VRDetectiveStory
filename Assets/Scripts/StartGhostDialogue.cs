@@ -42,7 +42,7 @@ public class StartGhostDialogue : MonoBehaviour {
 							
 					}
 
-					spiritGuideController.Appear(gameObject.transform.position + new Vector3(0, 0, 0.5f), audio.clip.length);
+					spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 				}
 				else {
 					lookedAtObjectForTime = 0;

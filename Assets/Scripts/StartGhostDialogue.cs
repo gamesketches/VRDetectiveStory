@@ -31,18 +31,19 @@ public class StartGhostDialogue : MonoBehaviour {
 								audio.clip = dialogue[0];
 								audio.Play();
 								spiritGuideController.flags["bed"] = true;
+								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 								}
 								break;
 						case "theater":
 							if(!spiritGuideController.flags["theater"]){
 								audio.clip = dialogue[2];
 								spiritGuideController.flags["theater"] = true;
+								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 								}
 							break;
 							
 					}
 
-					spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 				}
 				else {
 					lookedAtObjectForTime = 0;

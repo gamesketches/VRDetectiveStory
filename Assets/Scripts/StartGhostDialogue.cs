@@ -37,6 +37,7 @@ public class StartGhostDialogue : MonoBehaviour {
 						case "theater":
 							if(!spiritGuideController.flags["theater"]){
 								audio.clip = dialogue[2];
+								audio.Play();
 								spiritGuideController.flags["theater"] = true;
 								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 								}
@@ -44,9 +45,6 @@ public class StartGhostDialogue : MonoBehaviour {
 							
 					}
 
-				}
-				else {
-					lookedAtObjectForTime = 0;
 				}
 			}
 			else {

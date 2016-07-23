@@ -12,6 +12,7 @@ public class SpiritGuideController : MonoBehaviour {
 		flags.Add("bed", false);
 		flags.Add("theater", false);
 		flags.Add("outside", false);
+		flags.Add("dressing room", false);
 		DontDestroyOnLoad(transform.gameObject);
 	}
 	
@@ -61,5 +62,7 @@ public class SpiritGuideController : MonoBehaviour {
 			t += Time.deltaTime;
 			yield return null;
 		}
+
+		transform.position = new Vector3(0, -100, 0);
 	}
 }

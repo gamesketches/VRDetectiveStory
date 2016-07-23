@@ -90,6 +90,8 @@ public class ObjectHandling : MonoBehaviour {
 				return false;
 			case "holdable":
 			case "theater":
+			case "outside":
+			case "dressing room":
 				return true;
 		}
 		return false;

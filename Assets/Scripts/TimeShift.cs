@@ -32,6 +32,9 @@ public class TimeShift : MonoBehaviour {
 				}
 				updateFunction = TestCubeUpdate;
 				break;
+			case "pillCup":
+				updateFunction = PillBottleUpdate;
+				break;
 			// Test Cube handler
 			default:
 				materialForTest = GetComponent<Renderer>().material;
@@ -72,6 +75,10 @@ public class TimeShift : MonoBehaviour {
 		foreach(Material mat in roseMaterials) {
 			mat.color = Color.Lerp(decayedRoseColor, Color.white, currentTime);
 		}
+	}
+
+	void PillBottleUpdate() {
+		
 	}
 
 	void OnApplicationQuit() {

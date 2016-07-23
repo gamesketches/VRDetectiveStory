@@ -111,6 +111,8 @@ public class ObjectHandling : MonoBehaviour {
 				return 8;
 			case "outside":
 				return 9;
+			case "dressing room":
+				return 10;
 		}
 		return 0;
 	}

@@ -8,23 +8,33 @@ public class TimeShift : MonoBehaviour {
 	public float targetRangeBottom, targetRangeTop;
 	delegate void UpdateFunction();
 	UpdateFunction updateFunction;
+	Material[] roseMaterials;
+	public Color decayedRoseColor;
 	int[] triangleArray;
 	Mesh mesh;
 	// Use this for initialization
 	void Start () {
-		materialForTest = GetComponent<Renderer>().material;
-		mesh = GetComponent<MeshFilter>().sharedMesh;
 		switch(gameObject.name) {
 			case "wholepaper":
 			case "tornpaper":
+				mesh = GetComponent<MeshFilter>().sharedMesh;
 				updateFunction = PaperUpdate;
 				triangleArray = mesh.triangles;
 				break;
 			case "rose":
 			case "brokenrose":
+				updateFunction = RoseUpdate;
+				MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+				roseMaterials = new Material[renderers.Length - 1];
+				for(int i = 0; i < roseMaterials.Length - 1; i++) {
+					roseMaterials[i] = renderers[i].material;
+					roseMaterials[i].color = decayedRoseColor;
+				}
 				updateFunction = TestCubeUpdate;
 				break;
+			// Test Cube handler
 			default:
+				materialForTest = GetComponent<Renderer>().material;
 				updateFunction = TestCubeUpdate;
 				break;
 		}
@@ -56,6 +66,12 @@ public class TimeShift : MonoBehaviour {
 
 	public bool withinTargetRange() {
 		return currentTime < targetRangeTop && currentTime > targetRangeBottom;
+	}
+
+	void RoseUpdate() {
+		foreach(Material mat in roseMaterials) {
+			mat.color = Color.Lerp(decayedRoseColor, Color.white, currentTime);
+		}
 	}
 
 	void OnApplicationQuit() {

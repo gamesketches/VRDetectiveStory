@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e1d371b0d320d41b39b84555f75b3d83
 timeCreated: 1469469487
+=======
+guid: 04bcedd7753df48d9bee556cd6a8e1e6
+timeCreated: 1469499871
+>>>>>>> origin/master
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -162,7 +167,11 @@ ModelImporter:
     4300008: Tops
     4300010: Hair
     4300012: Bottoms
+<<<<<<< HEAD
     7400000: crowd clap
+=======
+    7400000: mixamo.com
+>>>>>>> origin/master
     9500000: //RootNode
     13700000: Body
     13700002: Bottoms
@@ -191,6 +200,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+<<<<<<< HEAD
     clipAnimations:
     - serializedVersion: 16
       name: crowd clap
@@ -374,6 +384,13 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 0.8
+=======
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+>>>>>>> origin/master
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

@@ -21,6 +21,17 @@ public class SpiritGuideController : MonoBehaviour {
 	
 	}
 
+	public bool CheckGameOverState() {
+		bool[] flagValues = new bool[flags.Values.Count];
+		flags.Values.CopyTo(flagValues, 0);
+		foreach(bool flag in flagValues) {
+			if(!flag) {
+				return;
+			}
+		}
+		GameOver();
+	}
+
 	public void Appear(Vector3 position, float time) {
 		Vector3 temp = position;
 		temp.y -= 1f;
@@ -64,5 +75,29 @@ public class SpiritGuideController : MonoBehaviour {
 		}
 
 		transform.position = new Vector3(0, -100, 0);
+	}
+
+	void GameOver() {
+
+		var goList = new System.Collections.Generic.List<GameObject>();
+		GameObject[] allObjects = FindObjectsOfType<GameObject>();
+		foreach(GameObject obj in allObjects){
+			if(obj.tag != "Player" && obj.activeInHierarchy && obj.transform.parent == null) {
+				StartCoroutine(FloatAway(obj.transform));
+			}
+		}
+	}
+
+	IEnumerator FloatAway(Transform objectTransform) {
+		Vector3 start = objectTransform.position;
+		Vector3 end = start + new Vector3(0f, -100f, 0f);
+		float t = 0;
+		while(t < 1) {
+			objectTransform.position = new Vector3(Mathf.SmoothStep(start.x, end.x, t),
+					Mathf.SmoothStep(start.y, end.y, t),
+					Mathf.SmoothStep(start.z, end.z, t));
+			t += Time.deltaTime / 15;
+			yield return null;
+		}
 	}
 }

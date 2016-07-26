@@ -14,6 +14,10 @@ public class StartGhostDialogue : MonoBehaviour {
 		audio = GetComponent<AudioSource>();
 		lookedAtObjectForTime = 0;
 		spiritGuideController = GameObject.Find("SpiritGuide").GetComponent<SpiritGuideController>();
+		if(spiritGuideController.CheckGameOverState()){
+			audio.clip = dialogue[dialogue.Length - 1];
+			audio.Play();
+		}
 	}
 	
 	// Update is called once per frame

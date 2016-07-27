@@ -30,7 +30,7 @@ public class TimeShift : MonoBehaviour {
 					roseMaterials[i] = renderers[i].material;
 					roseMaterials[i].color = decayedRoseColor;
 				}
-				updateFunction = TestCubeUpdate;
+				updateFunction = RoseUpdate;
 				break;
 			case "pillCup":
 				updateFunction = PillBottleUpdate;

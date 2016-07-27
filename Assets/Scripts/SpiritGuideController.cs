@@ -26,10 +26,11 @@ public class SpiritGuideController : MonoBehaviour {
 		flags.Values.CopyTo(flagValues, 0);
 		foreach(bool flag in flagValues) {
 			if(!flag) {
-				return;
+				return false;
 			}
 		}
 		GameOver();
+		return true;
 	}
 
 	public void Appear(Vector3 position, float time) {

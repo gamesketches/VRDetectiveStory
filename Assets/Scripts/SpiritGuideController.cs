@@ -5,26 +5,58 @@ using System.Collections.Generic;
 public class SpiritGuideController : MonoBehaviour {
 
 	public Dictionary<string,bool> flags;
+	bool[] visitedScenes;
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(FadeOut(0f));
+		visitedScenes = new bool[3];
 		flags = new Dictionary<string,bool>();
 		flags.Add("bed", false);
 		flags.Add("theater", false);
-		flags.Add("outside", false);
-		flags.Add("dressing room", false);
+		visitedScenes[0] = false;
+		visitedScenes[1] = false;
+		visitedScenes[2] = false;
 		DontDestroyOnLoad(transform.gameObject);
+	}
+
+	void OnLevelWasLoaded() {
+		Debug.Log("ON LOAD");
+		switch(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) {
+			case "theater":
+				visitedScenes[0] = true;
+				break;
+			case "outside":
+				visitedScenes[1] = true;
+				break;
+			case "dressing room":
+				visitedScenes[2] = true;
+				break;
+			default:
+				Debug.Log("main Scene");
+				foreach(bool sceneFlag in visitedScenes) {
+					Debug.Log(sceneFlag);
+				}
+				break;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// Debug Code for checking if game over works
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			int sceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+			sceneIndex++;
+			if(sceneIndex == 4) {
+				sceneIndex = 0;
+			}
+			UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
+		}
 	}
 
 	public bool CheckGameOverState() {
 		bool[] flagValues = new bool[flags.Values.Count];
 		flags.Values.CopyTo(flagValues, 0);
-		foreach(bool flag in flagValues) {
+		foreach(bool flag in visitedScenes) {
 			if(!flag) {
 				return false;
 			}

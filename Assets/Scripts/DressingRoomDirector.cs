@@ -44,7 +44,6 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	IEnumerator moveCharacter(Animator character, Vector3 endPos) {
-		Debug.Log("moving");
 		Transform charTransform = character.gameObject.transform;
 		Vector3 startPos = charTransform.position;
 		float t = 0;
@@ -53,7 +52,6 @@ public class DressingRoomDirector : MonoBehaviour {
 			t += Time.deltaTime;
 			yield return null;
 		}
-		Debug.Log("done moving");
 	}
 
 	// Sara walks in
@@ -76,16 +74,19 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	IEnumerator Beat2() {
 		sara.SetInteger("animationId", 2);
-		yield return moveCharacter(sara, new Vector3(4.194f, 7.25f, -4.745f));
-		//yield return moveCharacter(anna, new Vector3(-3.788, 7.25, -5.066));
-		// Anna does other stuff
+		moveCharacter(sara, new Vector3(4.194f, 7.25f, -4.745f));
+		yield return moveCharacter(anna, new Vector3(-3.788f, 7.25f, -5.066f));
+		anna.SetInteger("animationId", 1);
+		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		nextBeat();
 	}
 
 	// Sara does her shifty pill replacement
 	IEnumerator Beat3() {
-		// Anna hands bottle to sara
-		// anna.SetInteger to idle animation
+
+		anna.SetInteger("animationId", 2);
+		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+		anna.SetInteger("animationId", 3);
 		sara.SetInteger("animationId", 3);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 4);

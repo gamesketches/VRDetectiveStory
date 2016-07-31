@@ -82,8 +82,10 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	// Sara does her shifty pill replacement
+	// Start scene dialogue here?
 	IEnumerator Beat3() {
 
+		StartCoroutine(PlayDialogue());
 		anna.SetInteger("animationId", 2);
 		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		anna.SetInteger("animationId", 3);
@@ -105,5 +107,17 @@ public class DressingRoomDirector : MonoBehaviour {
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 8);
 		yield return moveCharacter(sara,  new Vector3(-4.21f, 7.21f, -7.585f));
+	}
+
+	IEnumerator PlayDialogue() {
+		AudioClip[] temp = Resources.LoadAll<AudioClip>("Dressing/Sound");
+		AudioClip[] dialogue = new AudioClip[] {temp[5], temp[0], temp[6], temp[1], temp[7], temp[2]};
+		foreach(AudioClip line in dialogue) {
+			audio.clip = line;
+			audio.Play();
+			while(audio.isPlaying) {
+				yield return null;
+			}
+		}
 	}
 }

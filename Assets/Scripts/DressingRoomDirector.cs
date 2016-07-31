@@ -102,7 +102,8 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	IEnumerator Beat4() {
-		// Play dialogue
+		audio.clip = Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10");
+		audio.Play();
 		sara.SetInteger("animationId", 7);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 8);

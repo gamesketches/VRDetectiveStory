@@ -31,7 +31,7 @@ public class DressingRoomDirector : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(switchingBeat) {
-			Debug.Log("switched to beat" + beatNumber.ToString());
+			Debug.Log("switched to beat" + (beatNumber + 1).ToString());
 			currentBeat = beats[beatNumber];
 			StartCoroutine(currentBeat());
 			switchingBeat = false;
@@ -49,7 +49,7 @@ public class DressingRoomDirector : MonoBehaviour {
 		float t = 0;
 		while(t < 1) {
 			charTransform.position = Vector3.Lerp(startPos, endPos, t);
-			t += Time.deltaTime;
+			t += Time.deltaTime / 3;
 			yield return null;
 		}
 	}
@@ -66,16 +66,26 @@ public class DressingRoomDirector : MonoBehaviour {
 		Debug.Log(audio.clip.name);
 		audio.Play();
 
-		while(audio.isPlaying) {
+		/*while(audio.isPlaying) {
 			yield return null;
-		}
+		}*/
 		nextBeat();
 	}
 
 	IEnumerator Beat2() {
+		float t = 0;
+		// Rotate towards car
+		while(t < 1) {
+			sara.gameObject.transform.Rotate(new Vector3(0, -70, 0) * Time.deltaTime);
+			t += Time.deltaTime;
+			yield return null;
+		}
 		sara.SetInteger("animationId", 2);
-		moveCharacter(sara, new Vector3(4.194f, 7.25f, -4.745f));
-		yield return moveCharacter(anna, new Vector3(-3.788f, 7.25f, -5.066f));
+		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.23f, -4.745f)));
+		sara.SetInteger("animationId", 3);
+		yield return StartCoroutine(moveCharacter(anna, new Vector3(-4.384f, 7.25f, -5.448f)));
+		sara.gameObject.transform.Rotate(new Vector3(0, -90, 0));
+		Debug.Log("rotated");
 		anna.SetInteger("animationId", 1);
 		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		nextBeat();
@@ -85,17 +95,27 @@ public class DressingRoomDirector : MonoBehaviour {
 	// Start scene dialogue here?
 	IEnumerator Beat3() {
 
-		StartCoroutine(PlayDialogue());
+		AudioClip[] dialogueClips = Resources.LoadAll<AudioClip>("Dressing/Sound");
+
+		yield return StartCoroutine(PlayDialogue());
 		anna.SetInteger("animationId", 2);
 		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+		Debug.Log("initial dialogue over");
 		anna.SetInteger("animationId", 3);
-		sara.SetInteger("animationId", 3);
-		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 4);
+		audio.clip = dialogueClips[7];
+		audio.Play();
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
+		Debug.Log("almost all dialogue done");
 		sara.SetInteger("animationId", 5);
+		audio.clip = dialogueClips[2];
+		audio.Play();
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
-		sara.SetInteger("animatinoId", 6);
+		sara.SetInteger("animationId", 6);
+		Debug.Log(sara.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
+		sara.SetInteger("animationId", 7);
+		Debug.Log(sara.GetCurrentAnimatorStateInfo(0).length);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 
 		nextBeat();
@@ -104,15 +124,15 @@ public class DressingRoomDirector : MonoBehaviour {
 	IEnumerator Beat4() {
 		audio.clip = Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10");
 		audio.Play();
-		sara.SetInteger("animationId", 7);
-		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 8);
+		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
+		sara.SetInteger("animationId", 9);
 		yield return moveCharacter(sara,  new Vector3(-4.21f, 7.21f, -7.585f));
 	}
 
 	IEnumerator PlayDialogue() {
 		AudioClip[] temp = Resources.LoadAll<AudioClip>("Dressing/Sound");
-		AudioClip[] dialogue = new AudioClip[] {temp[5], temp[0], temp[6], temp[1], temp[7], temp[2]};
+		AudioClip[] dialogue = new AudioClip[] {temp[5], temp[0], temp[6], temp[1]};
 		foreach(AudioClip line in dialogue) {
 			audio.clip = line;
 			audio.Play();

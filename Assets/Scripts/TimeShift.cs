@@ -26,7 +26,8 @@ public class TimeShift : MonoBehaviour {
 				updateFunction = RoseUpdate;
 				MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
 				roseMaterials = new Material[renderers.Length - 1];
-				for(int i = 0; i < roseMaterials.Length - 1; i++) {
+				Debug.Log(renderers.Length);
+				for(int i = 0; i < renderers.Length - 1; i++) {
 					roseMaterials[i] = renderers[i].material;
 					roseMaterials[i].color = decayedRoseColor;
 				}

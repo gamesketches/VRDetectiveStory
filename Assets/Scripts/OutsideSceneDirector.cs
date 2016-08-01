@@ -27,7 +27,8 @@ public class OutsideSceneDirector : MonoBehaviour {
 		beats.Add(Beat4);
 		beats.Add(Beat5);
 		switchingBeat = true;
-		//audio = GetComponent<AudioSource>();
+		audio = GetComponent<AudioSource>();
+		Debug.Log(audio);
 	}
 	
 	// Update is called once per frame
@@ -38,22 +39,32 @@ public class OutsideSceneDirector : MonoBehaviour {
 			switchingBeat = false;
 		}
 	}
+
+	IEnumerator PlayDialogue(string path) {
+		audio.clip = Resources.Load<AudioClip>(path);
+		audio.Play();
+		while(audio.isPlaying) {
+		yield return null;
+		}
+
+	}
+
 	// Anna and Manager Talk
 	// Play Audio of their conversation
 	IEnumerator Beat1(){
-		// audio.clip = Resources.Load<AudioClip>("outside/clipname");
-		// audio.Play();
-		// while(audio.isPlaying) {
-		//	yield return null;
-		//	}
+		yield return StartCoroutine(PlayDialogue("outside/Sound/manager1"));
+		yield return StartCoroutine(PlayDialogue("outside/Sound/ring"));
+		manager.SetInteger("animationId", 1);
+		yield return StartCoroutine(PlayDialogue("outside/Sound/manager2"));
+		audio.clip = Resources.Load<AudioClip>("outside/Sound/manager3");
+		audio.Play();
 		Debug.Log(anna.GetCurrentAnimatorStateInfo(0).length);
-		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+		//yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		beatNumber++;
 		switchingBeat = true;
 	}
 
 	IEnumerator Beat2() {
-		manager.SetInteger("animationId", 1);
 		float t = 0;
 		// Rotate towards car
 		while(t < 1) {

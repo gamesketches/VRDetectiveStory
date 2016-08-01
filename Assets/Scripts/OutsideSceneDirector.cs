@@ -77,7 +77,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		anna.SetBool("finished", true);
 		yield return null;
 		Vector3 startPosition = new Vector3(4.52f, 0.6f, -1.5f);
-		Vector3 endPosition = new Vector3(-8.46f, 0.6f, -6.9f);
+		Vector3 endPosition = new Vector3(-8.32f, 0.6f, -6.08f);
 		t = 0;
 		// Actually move model
 		while(t < 1) {

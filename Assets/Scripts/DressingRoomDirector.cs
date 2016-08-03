@@ -62,13 +62,8 @@ public class DressingRoomDirector : MonoBehaviour {
 		sara.SetInteger("animationId", 1);
 
 		// Sound of anna coming
-		audio.clip = Resources.Load<AudioClip>("Dressing/Sound/annasstepsdressingroom");
-		Debug.Log(audio.clip.name);
-		audio.Play();
+		yield return StartCoroutine(PlayAudioFile(Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10")));
 
-		/*while(audio.isPlaying) {
-			yield return null;
-		}*/
 		nextBeat();
 	}
 
@@ -99,16 +94,18 @@ public class DressingRoomDirector : MonoBehaviour {
 
 		yield return StartCoroutine(PlayDialogue());
 		anna.SetInteger("animationId", 2);
-		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(1);//anna.GetCurrentAnimatorStateInfo(0).length);
 		Debug.Log("initial dialogue over");
 		anna.SetInteger("animationId", 3);
 		sara.SetInteger("animationId", 4);
-		audio.clip = dialogueClips[7];
-		audio.Play();
-		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
+	/*	audio.clip = dialogueClips[3];
+		audio.Play();*/
+		yield return new WaitForSeconds(1);//sara.GetCurrentAnimatorStateInfo(0).length);
 		Debug.Log("almost all dialogue done");
 		sara.SetInteger("animationId", 5);
-		audio.clip = dialogueClips[2];
+		yield return StartCoroutine(PlayAudioFile(dialogueClips[3]));
+		yield return StartCoroutine(PlayAudioFile(dialogueClips[9]));
+		audio.clip = dialogueClips[4];
 		audio.Play();
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 6);
@@ -122,8 +119,8 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	IEnumerator Beat4() {
-		audio.clip = Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10");
-		audio.Play();
+		/*audio.clip = Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10");
+		audio.Play();*/
 		sara.SetInteger("animationId", 8);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 9);
@@ -132,13 +129,21 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	IEnumerator PlayDialogue() {
 		AudioClip[] temp = Resources.LoadAll<AudioClip>("Dressing/Sound");
-		AudioClip[] dialogue = new AudioClip[] {temp[5], temp[0], temp[6], temp[1]};
+		AudioClip[] dialogue = new AudioClip[] {temp[7], temp[0], temp[8], temp[2]};
 		foreach(AudioClip line in dialogue) {
 			audio.clip = line;
 			audio.Play();
 			while(audio.isPlaying) {
 				yield return null;
 			}
+		}
+	}
+
+	IEnumerator PlayAudioFile(AudioClip clip) {
+		audio.clip = clip;
+		audio.Play();
+		while(audio.isPlaying) {
+			yield return null;
 		}
 	}
 }

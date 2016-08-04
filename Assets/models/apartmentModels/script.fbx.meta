@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 8e6f868407eaf4eab9e934d587865a0c
+timeCreated: 1470288372
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: pCube10
+    100002: pCube2
+    100004: pCube3
+    100006: pCube4
+    100008: pCube5
+    100010: pCube6
+    100012: pCube7
+    100014: pCube8
+    100016: pCube9
+    100018: pTorus1
+    100020: pTorus10
+    100022: pTorus11
+    100024: pTorus12
+    100026: pTorus13
+    100028: pTorus14
+    100030: pTorus15
+    100032: pTorus16
+    100034: pTorus17
+    100036: pTorus18
+    100038: pTorus2
+    100040: pTorus3
+    100042: pTorus4
+    100044: pTorus5
+    100046: pTorus6
+    100048: pTorus7
+    100050: pTorus8
+    100052: pTorus9
+    100054: //RootNode
+    400000: pCube10
+    400002: pCube2
+    400004: pCube3
+    400006: pCube4
+    400008: pCube5
+    400010: pCube6
+    400012: pCube7
+    400014: pCube8
+    400016: pCube9
+    400018: pTorus1
+    400020: pTorus10
+    400022: pTorus11
+    400024: pTorus12
+    400026: pTorus13
+    400028: pTorus14
+    400030: pTorus15
+    400032: pTorus16
+    400034: pTorus17
+    400036: pTorus18
+    400038: pTorus2
+    400040: pTorus3
+    400042: pTorus4
+    400044: pTorus5
+    400046: pTorus6
+    400048: pTorus7
+    400050: pTorus8
+    400052: pTorus9
+    400054: //RootNode
+    2300000: pCube10
+    2300002: pCube2
+    2300004: pCube3
+    2300006: pCube4
+    2300008: pCube5
+    2300010: pCube6
+    2300012: pCube7
+    2300014: pCube8
+    2300016: pCube9
+    2300018: pTorus1
+    2300020: pTorus10
+    2300022: pTorus11
+    2300024: pTorus12
+    2300026: pTorus13
+    2300028: pTorus14
+    2300030: pTorus15
+    2300032: pTorus16
+    2300034: pTorus17
+    2300036: pTorus18
+    2300038: pTorus2
+    2300040: pTorus3
+    2300042: pTorus4
+    2300044: pTorus5
+    2300046: pTorus6
+    2300048: pTorus7
+    2300050: pTorus8
+    2300052: pTorus9
+    3300000: pCube10
+    3300002: pCube2
+    3300004: pCube3
+    3300006: pCube4
+    3300008: pCube5
+    3300010: pCube6
+    3300012: pCube7
+    3300014: pCube8
+    3300016: pCube9
+    3300018: pTorus1
+    3300020: pTorus10
+    3300022: pTorus11
+    3300024: pTorus12
+    3300026: pTorus13
+    3300028: pTorus14
+    3300030: pTorus15
+    3300032: pTorus16
+    3300034: pTorus17
+    3300036: pTorus18
+    3300038: pTorus2
+    3300040: pTorus3
+    3300042: pTorus4
+    3300044: pTorus5
+    3300046: pTorus6
+    3300048: pTorus7
+    3300050: pTorus8
+    3300052: pTorus9
+    4300000: pCube2
+    4300002: pCube3
+    4300004: pCube4
+    4300006: pCube5
+    4300008: pCube6
+    4300010: pCube7
+    4300012: pCube8
+    4300014: pCube9
+    4300016: pCube10
+    4300018: pTorus1
+    4300020: pTorus2
+    4300022: pTorus3
+    4300024: pTorus4
+    4300026: pTorus5
+    4300028: pTorus6
+    4300030: pTorus7
+    4300032: pTorus8
+    4300034: pTorus9
+    4300036: pTorus10
+    4300038: pTorus11
+    4300040: pTorus12
+    4300042: pTorus13
+    4300044: pTorus14
+    4300046: pTorus15
+    4300048: pTorus16
+    4300050: pTorus17
+    4300052: pTorus18
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 4
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

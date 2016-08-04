@@ -4,9 +4,11 @@ using System.Collections;
 public class StairBehavior : MonoBehaviour {
 
 	private GameObject[] sceneObjects;
-	private float targetY;
+	public float targetY;
+	public float bottomY;
 	private bool entered;
 	static float deltaY;
+	private float centerY;
 	// Use this for initialization
 	void Start () {
 		entered = false;
@@ -20,15 +22,15 @@ public class StairBehavior : MonoBehaviour {
 		}
 		sceneObjects = goList.ToArray();
 
-		targetY = gameObject.transform.GetComponent<BoxCollider>().center.y + transform.position.y;//.size.y / 2) + transform.position.y;
+		centerY = gameObject.transform.GetComponent<BoxCollider>().center.y + transform.position.y;//.size.y / 2) + transform.position.y;
 	}
 	
 	void OnTriggerEnter(Collider other) {
 		if(other.gameObject.tag == "Player" && !entered) {
 			entered = true;
 			float dif = Mathf.Abs(targetY - deltaY);
-			if(targetY > deltaY) {
-				deltaY += dif;
+			if(deltaY < centerY) {//if(targetY > deltaY) {
+				deltaY = dif;
 				foreach(GameObject obj in sceneObjects) {
 				Vector3 temp = obj.transform.position;
 				temp.y = temp.y - dif;
@@ -36,12 +38,14 @@ public class StairBehavior : MonoBehaviour {
 				StartCoroutine(StairMovement(obj.transform, temp));
 			}
 			}
-			else if(targetY < deltaY) {
-				deltaY -= dif;
+			else {//if(targetY < deltaY) {
+				Debug.Log("should be going down");
+				dif = deltaY;
+				deltaY = 0;
 				foreach(GameObject obj in sceneObjects) {
 				Vector3 temp = obj.transform.position;
 				temp.y = temp.y + dif;
-				obj.transform.position = temp;
+				//obj.transform.position = temp;
 				StartCoroutine(StairMovement(obj.transform, temp));
 			}
 			}

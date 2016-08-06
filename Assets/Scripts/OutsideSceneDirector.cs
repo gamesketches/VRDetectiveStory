@@ -106,7 +106,6 @@ public class OutsideSceneDirector : MonoBehaviour {
 	IEnumerator Beat4() {
 		// Read animation would go here
 		anna.SetInteger("animationId", 3);
-		//stalker.SetInteger("animationId", 1);
 		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		beatNumber++;
 		switchingBeat = true;
@@ -116,6 +115,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		float t = 0;
 		anna.SetInteger("animationId", 4);
 		stalker.SetInteger("animationId", 1);
+		stalker.gameObject.transform.Rotate(new Vector3(0, 53, 0));
 		Vector3 startPosition = stalker.gameObject.transform.position;
 		Vector3 endPosition = new Vector3 (-25.1f, 0.6f, -15.42f);
 		yield return StartCoroutine(PlayDialogue(audio, "outside/Sound/spirit8"));

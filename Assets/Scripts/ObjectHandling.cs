@@ -1,19 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class ObjectHandling : MonoBehaviour {
 
 	public GameObject intersectingObject;
+	private GameObject clock;
+	public Vector3 rosePositionWhenHeld;
+	public Vector3 paperPositionWhenHeld;
+	public Vector3 pillBottlePositionWhenHeld;
+	private Dictionary<int, Vector3> objectPositions;
 	Director director;
 	int controllerIndex;
 	float lastTimeAngle;
 	// Use this for initialization
 	void Start () {
 		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
+		clock = gameObject.transform.GetChild(0).gameObject;
+		clock.SetActive(false);
 		if(SceneManager.GetActiveScene().name == "main") {
 			intersectingObject = null;
 			}
+		objectPositions = new Dictionary<int, Vector3>();
+		objectPositions.Add(0, rosePositionWhenHeld);
+		objectPositions.Add(1, paperPositionWhenHeld);
+		objectPositions.Add(2, pillBottlePositionWhenHeld);
 		controllerIndex = (int)gameObject.transform.parent.gameObject.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
@@ -35,6 +47,7 @@ public class ObjectHandling : MonoBehaviour {
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
+				clock.SetActive(false);
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
 					SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
@@ -43,6 +56,9 @@ public class ObjectHandling : MonoBehaviour {
 			}
 			else {
 				intersectingObject.transform.parent = gameObject.transform.parent;
+				int objectKey = ConvertTagToInt(intersectingObject.tag);
+				intersectingObject.transform.localPosition = objectPositions[objectKey];
+				clock.SetActive(true);
 			}
 		}
 	}

@@ -5,6 +5,7 @@ public class TheaterDialogueRunner : MonoBehaviour {
 
 	AudioSource audio;
 	AudioClip[] audioClips;
+	public float timeBeforeDialogueStart;
 	public float timeBetweenClips;
 	// Use this for initialization
 	void Start () {
@@ -14,7 +15,7 @@ public class TheaterDialogueRunner : MonoBehaviour {
 	}
 	
 	IEnumerator PlayAudio() {
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(timeBeforeDialogueStart);
 		for(int i = 1; i < audioClips.Length; i++) {
 			audio.clip = audioClips[i];
 			audio.Play();

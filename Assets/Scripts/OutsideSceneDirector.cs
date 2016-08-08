@@ -29,6 +29,10 @@ public class OutsideSceneDirector : MonoBehaviour {
 		beats.Add(Beat5);
 		switchingBeat = true;
 		audio = GetComponent<AudioSource>();
+		GameObject cellphone = GameObject.Find("cellphone");
+		cellphone.transform.parent = manager.GetBoneTransform(HumanBodyBones.RightHand);
+		cellphone.transform.localPosition = new Vector3(0.017f, 0.154f, 0.059f);
+		cellphone.transform.localRotation = Quaternion.Euler(new Vector3(359.2657f, 76.00868f, 99.16274f));
 	}
 	
 	// Update is called once per frame

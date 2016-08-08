@@ -110,7 +110,10 @@ public class OutsideSceneDirector : MonoBehaviour {
 	IEnumerator Beat4() {
 		// Read animation would go here
 		anna.SetInteger("animationId", 3);
-		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+		AnnaOutsideIKController ikController = anna.GetComponent<AnnaOutsideIKController>();
+		ikController.IKActive = true;
+		yield return new WaitForSeconds(1f);//anna.GetCurrentAnimatorStateInfo(0).length);
+		ikController.IKActive = false;
 		beatNumber++;
 		switchingBeat = true;
 	}

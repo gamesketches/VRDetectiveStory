@@ -14,6 +14,7 @@ public class DressingRoomDirector : MonoBehaviour {
 	List<Beat> beats; 
 	Beat currentBeat;
 	bool switchingBeat;
+	GameObject pillBottle;
 	// Use this for initialization
 	void Start () {
 		beatNumber = 0;
@@ -26,6 +27,8 @@ public class DressingRoomDirector : MonoBehaviour {
 		beats.Add(Beat3);
 		beats.Add(Beat4);
 		switchingBeat = true;
+		pillBottle = GameObject.Find("pillbottle");
+		pillBottle.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -93,15 +96,21 @@ public class DressingRoomDirector : MonoBehaviour {
 		AudioClip[] dialogueClips = Resources.LoadAll<AudioClip>("Dressing/Sound");
 
 		yield return StartCoroutine(PlayDialogue());
+		pillBottle.SetActive(true);
+		pillBottle.transform.parent = anna.GetBoneTransform(HumanBodyBones.RightHand);
+		pillBottle.transform.localPosition = new Vector3(-0.059f, 0.073f, 0.001f);
+		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(286.4384f, 291.4244f, 232.6425f));
 		anna.SetInteger("animationId", 2);
 		yield return new WaitForSeconds(1);//anna.GetCurrentAnimatorStateInfo(0).length);
 		Debug.Log("initial dialogue over");
+		pillBottle.transform.parent = sara.GetBoneTransform(HumanBodyBones.RightHand);
+		pillBottle.transform.localPosition = new Vector3(-0.0488f, 0.0281f, 0.0294f);
+		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(72.52068f, 225.0405f, 46.9778f));
 		anna.SetInteger("animationId", 3);
 		sara.SetInteger("animationId", 4);
 	/*	audio.clip = dialogueClips[3];
 		audio.Play();*/
 		yield return new WaitForSeconds(1);//sara.GetCurrentAnimatorStateInfo(0).length);
-		Debug.Log("almost all dialogue done");
 		sara.SetInteger("animationId", 5);
 		yield return StartCoroutine(PlayAudioFile(dialogueClips[3]));
 		yield return StartCoroutine(PlayAudioFile(dialogueClips[9]));

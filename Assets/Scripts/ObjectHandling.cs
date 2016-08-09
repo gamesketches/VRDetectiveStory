@@ -35,7 +35,8 @@ public class ObjectHandling : MonoBehaviour {
 			return;
 		}
 		var device = SteamVR_Controller.Input(controllerIndex);
-		if(intersectingObject.transform.parent == gameObject.transform.parent) {
+		if(intersectingObject.transform.parent == gameObject.transform.parent && 
+							ConvertTagToInt(intersectingObject.tag) != 1) {
 			if(device.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad)) {
 				lastTimeAngle = -1;
 			}
@@ -58,7 +59,9 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.parent = gameObject.transform.parent;
 				int objectKey = ConvertTagToInt(intersectingObject.tag);
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
-				clock.SetActive(true);
+				if(objectKey != 1) {
+					clock.SetActive(true);
+				}
 			}
 		}
 	}

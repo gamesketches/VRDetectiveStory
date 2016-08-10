@@ -51,7 +51,7 @@ public class ObjectHandling : MonoBehaviour {
 				clock.SetActive(false);
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
-					SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
+					StartCoroutine(ChangeScene("main"));//SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
 					}
 				}
 			}
@@ -92,7 +92,8 @@ public class ObjectHandling : MonoBehaviour {
 		}
 		timeShift.currentTime = newTime / 360;
 		if(timeShift.withinTargetRange()) {
-			SceneManager.LoadScene(intersectingObject.tag);//director.ChangeScene(ConvertTagToInt("theater"));//intersectingObject.tag));
+			//SceneManager.LoadScene(intersectingObject.tag);//director.ChangeScene(ConvertTagToInt("theater"));//intersectingObject.tag));
+			StartCoroutine(ChangeScene(intersectingObject.tag));
 		}
 		return newTime;
 	}
@@ -139,5 +140,15 @@ public class ObjectHandling : MonoBehaviour {
 				return 10;
 		}
 		return 0;
+	}
+
+	IEnumerator ChangeScene(string sceneName) {
+		float t = 0f;
+		SteamVR_Fade.Start(Color.black, 0f);
+		while(t < 1) {
+			// Apply image effect
+			t += Time.deltaTime;
+			yield return null;
+		}
 	}
 }

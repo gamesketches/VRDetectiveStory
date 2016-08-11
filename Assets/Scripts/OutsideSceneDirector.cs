@@ -112,7 +112,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		anna.SetInteger("animationId", 3);
 		AnnaOutsideIKController ikController = anna.GetComponent<AnnaOutsideIKController>();
 		ikController.IKActive = true;
-		yield return new WaitForSeconds(1f);//anna.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(8f);//anna.GetCurrentAnimatorStateInfo(0).length);
 		ikController.IKActive = false;
 		beatNumber++;
 		switchingBeat = true;
@@ -120,12 +120,12 @@ public class OutsideSceneDirector : MonoBehaviour {
 
 	IEnumerator Beat5() {
 		float t = 0;
+		yield return StartCoroutine(PlayDialogue(audio, "outside/Sound/spirit8"));
 		anna.SetInteger("animationId", 4);
 		stalker.SetInteger("animationId", 1);
 		stalker.gameObject.transform.Rotate(new Vector3(0, 53, 0));
 		Vector3 startPosition = stalker.gameObject.transform.position;
 		Vector3 endPosition = new Vector3 (-25.1f, 0.6f, -15.42f);
-		yield return StartCoroutine(PlayDialogue(audio, "outside/Sound/spirit8"));
 		while(t < 1) {
 			stalker.gameObject.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 			t += (Time.deltaTime / 3);

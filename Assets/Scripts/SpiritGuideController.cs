@@ -12,7 +12,6 @@ public class SpiritGuideController : MonoBehaviour {
 	void Start () {
 		flyAwayVectors = new Vector3[2] {Vector3.up, Vector3.left};
 		flyAwayTimes = 0;
-		StartCoroutine(FadeOut(0f));
 		visitedScenes = new bool[3];
 		flags = new Dictionary<string,bool>();
 		flags.Add("bed", false);

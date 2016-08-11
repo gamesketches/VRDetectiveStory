@@ -49,6 +49,7 @@ public class ObjectHandling : MonoBehaviour {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
 				clock.SetActive(false);
+				StartCoroutine(ClockSummoning(5, 1));
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
 					StartCoroutine(ChangeScene("main"));//SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
@@ -61,6 +62,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
 				if(objectKey != 1) {
 					clock.SetActive(true);
+					StartCoroutine(ClockSummoning(1, 5));
 				}
 			}
 		}
@@ -75,6 +77,18 @@ public class ObjectHandling : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		if(ConvertTagToInt(other.gameObject.tag) > 0) {
 			intersectingObject = null;
+		}
+	}
+
+	IEnumerator ClockSummoning(float baseSize, float targetSize) {
+		float t = 0;
+		while(t < 1) {
+			float temp = Mathf.SmoothStep(baseSize, targetSize, t);
+			Vector3 tempScale = new Vector3(temp, temp, temp);
+			clock.transform.localScale = tempScale;
+			t += Time.deltaTime;
+			t += 1;
+			yield return null;
 		}
 	}
 

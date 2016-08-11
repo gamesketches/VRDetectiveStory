@@ -59,6 +59,7 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	// Sara walks in
 	IEnumerator Beat1() {
+		yield return new WaitForSeconds(8f);
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-3.788f, 7.25f, -5.066f)));
 
 		// Sara looks around

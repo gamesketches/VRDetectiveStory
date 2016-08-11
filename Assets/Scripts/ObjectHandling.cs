@@ -23,9 +23,9 @@ public class ObjectHandling : MonoBehaviour {
 			intersectingObject = null;
 			}
 		objectPositions = new Dictionary<int, Vector3>();
-		objectPositions.Add(0, rosePositionWhenHeld);
-		objectPositions.Add(1, paperPositionWhenHeld);
-		objectPositions.Add(2, pillBottlePositionWhenHeld);
+		objectPositions.Add(8, rosePositionWhenHeld);
+		objectPositions.Add(9, paperPositionWhenHeld);
+		objectPositions.Add(10, pillBottlePositionWhenHeld);
 		controllerIndex = (int)gameObject.transform.parent.gameObject.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
@@ -49,6 +49,7 @@ public class ObjectHandling : MonoBehaviour {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
 				clock.SetActive(false);
+				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
 				StartCoroutine(ClockSummoning(5, 1));
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
@@ -60,6 +61,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.parent = gameObject.transform.parent;
 				int objectKey = ConvertTagToInt(intersectingObject.tag);
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
+				intersectingObject.GetComponent<Rigidbody>().useGravity = false;
 				if(objectKey != 1) {
 					clock.SetActive(true);
 					StartCoroutine(ClockSummoning(1, 5));
@@ -164,5 +166,6 @@ public class ObjectHandling : MonoBehaviour {
 			t += Time.deltaTime;
 			yield return null;
 		}
+		SceneManager.LoadScene(sceneName);
 	}
 }

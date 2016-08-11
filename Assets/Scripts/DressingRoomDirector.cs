@@ -73,7 +73,6 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	IEnumerator Beat2() {
 		float t = 0;
-		// Rotate towards car
 		while(t < 1) {
 			sara.gameObject.transform.Rotate(new Vector3(0, -70, 0) * Time.deltaTime);
 			t += Time.deltaTime;
@@ -109,20 +108,31 @@ public class DressingRoomDirector : MonoBehaviour {
 		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(72.52068f, 225.0405f, 46.9778f));
 		anna.SetInteger("animationId", 3);
 		sara.SetInteger("animationId", 4);
-	/*	audio.clip = dialogueClips[3];
-		audio.Play();*/
 		yield return new WaitForSeconds(1);//sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 5);
 		yield return StartCoroutine(PlayAudioFile(dialogueClips[3]));
-		yield return StartCoroutine(PlayAudioFile(dialogueClips[9]));
+		yield return StartCoroutine(PlayAudioFile(dialogueClips[10]));
 		audio.clip = dialogueClips[4];
 		audio.Play();
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 6);
+		float t = 0;
+		while(t < 1) {
+			sara.gameObject.transform.Rotate(new Vector3(0, -180, 0) * Time.deltaTime);
+			t += Time.deltaTime;
+			yield return null;
+		}
+
 		Debug.Log(sara.GetCurrentAnimatorStateInfo(0).length);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 7);
 		Debug.Log(sara.GetCurrentAnimatorStateInfo(0).length);
+		t = 0;
+		while(t < 1) {
+			sara.gameObject.transform.Rotate(new Vector3(0, -70, 0) * Time.deltaTime);
+			t += Time.deltaTime;
+			yield return null;
+		}
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 
 		nextBeat();
@@ -139,7 +149,7 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	IEnumerator PlayDialogue() {
 		AudioClip[] temp = Resources.LoadAll<AudioClip>("Dressing/Sound");
-		AudioClip[] dialogue = new AudioClip[] {temp[7], temp[0], temp[8], temp[2]};
+		AudioClip[] dialogue = new AudioClip[] {temp[8], temp[0], temp[9], temp[2]};
 		foreach(AudioClip line in dialogue) {
 			audio.clip = line;
 			audio.Play();

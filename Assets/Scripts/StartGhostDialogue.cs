@@ -46,7 +46,9 @@ public class StartGhostDialogue : MonoBehaviour {
 								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
 								}
 							break;
-							
+						case "guide":
+							spiritGuideController.FlyAway();
+							break;
 					}
 
 				}

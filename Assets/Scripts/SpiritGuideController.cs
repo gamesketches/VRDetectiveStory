@@ -6,8 +6,12 @@ public class SpiritGuideController : MonoBehaviour {
 
 	public Dictionary<string,bool> flags;
 	bool[] visitedScenes;
+	Vector3[] flyAwayVectors;
+	int flyAwayTimes;
 	// Use this for initialization
 	void Start () {
+		flyAwayVectors = new Vector3[2] {Vector3.up, Vector3.left};
+		flyAwayTimes = 0;
 		StartCoroutine(FadeOut(0f));
 		visitedScenes = new bool[3];
 		flags = new Dictionary<string,bool>();
@@ -108,6 +112,29 @@ public class SpiritGuideController : MonoBehaviour {
 		}
 
 		transform.position = new Vector3(0, -100, 0);
+	}
+
+	public void FlyAway() {
+		if(flyAwayTimes >= 0 && flyAwayTimes <= flyAwayVectors.Length) {
+			StartCoroutine(FlyingAway());
+		}
+	}
+
+	IEnumerator FlyingAway() {
+		float t = 0;
+		int flyAwayCopy = flyAwayTimes;
+		flyAwayTimes = -1;
+		Vector3 targetLocation = transform.position + (flyAwayVectors[flyAwayCopy] * 7);
+		float startY = transform.position.y;
+		while(t < 1) {
+			Vector3 temp = transform.position;
+			temp.y = Mathf.SmoothStep(startY, targetLocation.y, t);
+			transform.position = temp;
+			t += Time.deltaTime;
+			yield return null;
+		}
+
+		flyAwayTimes = flyAwayCopy + 1;
 	}
 
 	void GameOver() {

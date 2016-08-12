@@ -129,7 +129,7 @@ public class DressingRoomDirector : MonoBehaviour {
 		Debug.Log(sara.GetCurrentAnimatorStateInfo(0).length);
 		t = 0;
 		while(t < 1) {
-			sara.gameObject.transform.Rotate(new Vector3(0, -70, 0) * Time.deltaTime);
+			sara.gameObject.transform.Rotate(new Vector3(0, 180, 0) * Time.deltaTime);
 			t += Time.deltaTime;
 			yield return null;
 		}

@@ -8,8 +8,11 @@ public class ObjectHandling : MonoBehaviour {
 	public GameObject intersectingObject;
 	private GameObject clock;
 	public Vector3 rosePositionWhenHeld;
+	public Vector3 roseRotationWhenHeld;
 	public Vector3 paperPositionWhenHeld;
+	public Vector3 paperRotationWhenHeld;
 	public Vector3 pillBottlePositionWhenHeld;
+	public Vector3 pillRotationWhenHeld;
 	private Dictionary<int, Vector3> objectPositions;
 	Director director;
 	int controllerIndex;
@@ -50,6 +53,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.parent = null;
 				clock.SetActive(false);
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
+				intersectingObject.GetComponent<Rigidbody>().isKinematic = false;
 				StartCoroutine(ClockSummoning(5, 1));
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
@@ -62,6 +66,7 @@ public class ObjectHandling : MonoBehaviour {
 				int objectKey = ConvertTagToInt(intersectingObject.tag);
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
 				intersectingObject.GetComponent<Rigidbody>().useGravity = false;
+				intersectingObject.GetComponent<Rigidbody>().isKinematic = true;
 				if(objectKey != 1) {
 					clock.SetActive(true);
 					StartCoroutine(ClockSummoning(1, 5));

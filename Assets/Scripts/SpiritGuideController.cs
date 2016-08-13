@@ -71,7 +71,7 @@ public class SpiritGuideController : MonoBehaviour {
 	public void Appear(Vector3 position, float time) {
 		Vector3 temp = position;
 		temp.y -= 1f;
-		temp.z -= 1f;
+		temp.z += 1f;
 		transform.position = temp;
 		transform.LookAt(position - new Vector3(0f, 1f, 0f));
 		StartCoroutine(FadeIn());

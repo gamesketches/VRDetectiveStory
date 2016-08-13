@@ -66,7 +66,7 @@ public class DressingRoomDirector : MonoBehaviour {
 		sara.SetInteger("animationId", 1);
 
 		// Sound of anna coming
-		yield return StartCoroutine(PlayAudioFile(Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10")));
+		yield return StartCoroutine(PlayAudioFile(Resources.Load<AudioClip>("Dressing/Sound/ThatsWeird")));
 
 		nextBeat();
 	}

@@ -120,7 +120,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 
 	IEnumerator Beat5() {
 		float t = 0;
-		yield return StartCoroutine(PlayDialogue(audio, "outside/Sound/spirit8"));
+		yield return StartCoroutine(PlayDialogue(audio, "outside/Sound/Look"));
 		anna.SetInteger("animationId", 4);
 		stalker.SetInteger("animationId", 1);
 		stalker.gameObject.transform.Rotate(new Vector3(0, 53, 0));
@@ -133,7 +133,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		}
 
 		stalker.SetInteger("animationId", 2);
-		audio.clip = Resources.Load<AudioClip>("outside/Sound/spirit9");
+		audio.clip = Resources.Load<AudioClip>("outside/Sound/YouHaveAStalker");
 		audio.Play();
 		Debug.Log("spirit9");
 	}

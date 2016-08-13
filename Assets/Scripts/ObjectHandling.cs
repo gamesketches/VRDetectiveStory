@@ -8,8 +8,11 @@ public class ObjectHandling : MonoBehaviour {
 	public GameObject intersectingObject;
 	private GameObject clock;
 	public Vector3 rosePositionWhenHeld;
+	public Vector3 roseRotationWhenHeld;
 	public Vector3 paperPositionWhenHeld;
+	public Vector3 paperRotationWhenHeld;
 	public Vector3 pillBottlePositionWhenHeld;
+	public Vector3 pillRotationWhenHeld;
 	private Dictionary<int, Vector3> objectPositions;
 	Director director;
 	int controllerIndex;
@@ -17,10 +20,10 @@ public class ObjectHandling : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
-		clock = gameObject.transform.GetChild(0).gameObject;
-		clock.SetActive(false);
 		if(SceneManager.GetActiveScene().name == "main") {
 			intersectingObject = null;
+			clock = gameObject.transform.GetChild(0).gameObject;
+			clock.SetActive(false);
 			}
 		objectPositions = new Dictionary<int, Vector3>();
 		objectPositions.Add(8, rosePositionWhenHeld);
@@ -48,8 +51,11 @@ public class ObjectHandling : MonoBehaviour {
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
-				clock.SetActive(false);
+				if(clock != null) {
+					clock.SetActive(false);
+				}
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
+				intersectingObject.GetComponent<Rigidbody>().isKinematic = false;
 				StartCoroutine(ClockSummoning(5, 1));
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
@@ -62,7 +68,8 @@ public class ObjectHandling : MonoBehaviour {
 				int objectKey = ConvertTagToInt(intersectingObject.tag);
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
 				intersectingObject.GetComponent<Rigidbody>().useGravity = false;
-				if(objectKey != 1) {
+				intersectingObject.GetComponent<Rigidbody>().isKinematic = true;
+				if(objectKey != 1 && clock != null) {
 					clock.SetActive(true);
 					StartCoroutine(ClockSummoning(1, 5));
 				}
@@ -160,12 +167,12 @@ public class ObjectHandling : MonoBehaviour {
 
 	IEnumerator ChangeScene(string sceneName) {
 		float t = 0f;
-		SteamVR_Fade.Start(Color.black, 0f);
-		while(t < 1) {
-			// Apply image effect
-			t += Time.deltaTime;
-			yield return null;
-		}
+		AudioSource audio = gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
+		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
+		audio.Play();
+		SteamVR_Fade.View(Color.black, audio.clip.length);
+		yield return new WaitForSeconds(audio.clip.length);
 		SceneManager.LoadScene(sceneName);
+		SteamVR_Fade.View(Color.clear, 1f);
 	}
 }

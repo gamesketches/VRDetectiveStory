@@ -15,7 +15,11 @@ public class StartGhostDialogue : MonoBehaviour {
 		lookedAtObjectForTime = 0;
 		spiritGuideController = GameObject.Find("SpiritGuide").GetComponent<SpiritGuideController>();
 		if(spiritGuideController.CheckGameOverState()){
-			audio.clip = dialogue[dialogue.Length - 1];
+			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/endingSpeech");//dialogue[dialogue.Length - 1];
+			audio.Play();
+		}
+		else if(spiritGuideController.flags["theater"]){
+			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/StartExploring");
 			audio.Play();
 		}
 	}
@@ -32,7 +36,7 @@ public class StartGhostDialogue : MonoBehaviour {
 					switch(hit.collider.tag) {
 						case "bed": 
 							if(!spiritGuideController.flags["bed"]) {
-								audio.clip = dialogue[0];
+								audio.clip = Resources.Load<AudioClip>("Apartment/Sound/GuideIntro");//dialogue[0];
 								audio.Play();
 								spiritGuideController.flags["bed"] = true;
 								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);
@@ -40,7 +44,7 @@ public class StartGhostDialogue : MonoBehaviour {
 								break;
 						case "theater":
 							if(!spiritGuideController.flags["theater"]){
-								audio.clip = dialogue[2];
+								audio.clip = Resources.Load<AudioClip>("Apartment/Sound/ControllerInstruction");//dialogue[2];
 								audio.Play();
 								spiritGuideController.flags["theater"] = true;
 								spiritGuideController.Appear(gameObject.transform.position, audio.clip.length);

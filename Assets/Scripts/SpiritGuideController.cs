@@ -29,9 +29,6 @@ public class SpiritGuideController : MonoBehaviour {
 		switch(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) {
 			case "theater":
 				visitedScenes[0] = true;
-				GameObject secondClue = GameObject.Find("SpiritGuideSecondClue");
-				transform.position = secondClue.transform.position;
-				transform.rotation = secondClue.transform.rotation;
 				break;
 			case "outside":
 				visitedScenes[1] = true;
@@ -40,6 +37,11 @@ public class SpiritGuideController : MonoBehaviour {
 				visitedScenes[2] = true;
 				break;
 			default:
+				if(visitedScenes[0] == true) {
+					GameObject secondClue = GameObject.Find("SpiritGuideSecondClue");
+					transform.position = secondClue.transform.position;
+					transform.rotation = secondClue.transform.rotation;
+				}
 				Debug.Log("main Scene");
 				foreach(bool sceneFlag in visitedScenes) {
 					Debug.Log(sceneFlag);

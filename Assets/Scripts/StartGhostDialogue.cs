@@ -4,7 +4,9 @@ using System.Collections;
 public class StartGhostDialogue : MonoBehaviour {
 
 	AudioClip[] dialogue;
-	public float lookTime;
+	public float baseLookTime;
+	public float bedAdditionalTime;
+	public float roseAdditionalTime;
 	private float lookedAtObjectForTime;
 	SpiritGuideController spiritGuideController;
 	AudioSource audio;
@@ -32,10 +34,11 @@ public class StartGhostDialogue : MonoBehaviour {
 		if(Physics.Raycast(ray, out hit, 5f)) {
 			if(hit.collider.gameObject.layer == 9) {
 				lookedAtObjectForTime += Time.deltaTime;
-				if(lookedAtObjectForTime > lookTime) {
+				if(lookedAtObjectForTime > baseLookTime) {
 					switch(hit.collider.tag) {
 						case "bed": 
-							if(!spiritGuideController.flags["bed"]) {
+							if(lookedAtObjectForTime > baseLookTime + bedAdditionalTime && 
+												!spiritGuideController.flags["bed"]) {
 								audio.clip = Resources.Load<AudioClip>("Apartment/Sound/GuideIntro");//dialogue[0];
 								audio.Play();
 								spiritGuideController.flags["bed"] = true;
@@ -43,7 +46,8 @@ public class StartGhostDialogue : MonoBehaviour {
 								}
 								break;
 						case "theater":
-							if(!spiritGuideController.flags["theater"]){
+							if(lookedAtObjectForTime > baseLookTime + bedAdditionalTime &&
+								!spiritGuideController.flags["theater"]){
 								audio.clip = Resources.Load<AudioClip>("Apartment/Sound/ControllerInstruction");//dialogue[2];
 								audio.Play();
 								spiritGuideController.flags["theater"] = true;

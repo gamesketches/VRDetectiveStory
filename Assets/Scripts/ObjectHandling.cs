@@ -170,7 +170,7 @@ public class ObjectHandling : MonoBehaviour {
 		AudioSource audio = gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
 		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
 		audio.Play();
-		SteamVR_Fade.View(Color.black, audio.clip.length);
+		SteamVR_Fade.View(new Color(110f / 255f, 101f / 255f, 212f / 255f), audio.clip.length);
 		yield return new WaitForSeconds(audio.clip.length);
 		SceneManager.LoadScene(sceneName);
 		SteamVR_Fade.View(Color.clear, 1f);

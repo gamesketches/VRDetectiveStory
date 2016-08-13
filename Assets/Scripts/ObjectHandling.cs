@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.ImageEffects;
 
 public class ObjectHandling : MonoBehaviour {
 
@@ -166,12 +167,20 @@ public class ObjectHandling : MonoBehaviour {
 	}
 
 	IEnumerator ChangeScene(string sceneName) {
+		GameObject head = gameObject.transform.parent.parent.GetChild(2).gameObject;
+		Vortex theVortex = head.GetComponentInChildren<Vortex>();
 		float t = 0f;
-		AudioSource audio = gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
+		AudioSource audio = head.GetComponent<AudioSource>();//gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
 		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
 		audio.Play();
 		SteamVR_Fade.View(new Color(110f / 255f, 101f / 255f, 212f / 255f, 1f), audio.clip.length / 2);
-		yield return new WaitForSeconds(audio.clip.length);
+		while(t < audio.clip.length) {
+			float newRad = Mathf.SmoothStep(0f, 0.5f, t / audio.clip.length);
+			theVortex.radius = new Vector2(newRad, newRad);
+			t += Time.deltaTime;
+			yield return null;
+		}
+		//yield return new WaitForSeconds(audio.clip.length);
 		SceneManager.LoadScene(sceneName);
 		SteamVR_Fade.View(Color.clear, 1f);
 	}

@@ -129,7 +129,7 @@ public class SpiritGuideController : MonoBehaviour {
 		float t = 0;
 		float f = 0;
 		Quaternion startRotation = transform.rotation;
-		Quaternion targetRotation = Quaternion.Euler(new Vector3(-90f, 0, 0));
+		Quaternion targetRotation = Quaternion.Euler(new Vector3(-90f, 31.2106f, 0f));
 		int flyAwayCopy = flyAwayTimes;
 		flyAwayTimes = -1;
 		Vector3 targetLocation = transform.position + (flyAwayVectors[flyAwayCopy] * 7);
@@ -143,6 +143,9 @@ public class SpiritGuideController : MonoBehaviour {
 			f += Time.deltaTime;
 			yield return null;
 		}
+
+		transform.rotation = startRotation;
+		animator.SetBool("flying", false);
 
 		flyAwayTimes = flyAwayCopy + 1;
 	}

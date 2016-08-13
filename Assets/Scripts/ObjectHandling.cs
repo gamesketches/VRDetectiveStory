@@ -15,21 +15,24 @@ public class ObjectHandling : MonoBehaviour {
 	public Vector3 pillBottlePositionWhenHeld;
 	public Vector3 pillRotationWhenHeld;
 	private Dictionary<int, Vector3> objectPositions;
-	Director director;
+	private Dictionary<int, Vector3> objectRotations;
 	int controllerIndex;
 	float lastTimeAngle;
 	// Use this for initialization
 	void Start () {
-		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
 		if(SceneManager.GetActiveScene().name == "main") {
 			intersectingObject = null;
 			clock = gameObject.transform.GetChild(0).gameObject;
 			clock.SetActive(false);
 			}
 		objectPositions = new Dictionary<int, Vector3>();
+		objectRotations = new Dictionary<int, Vector3>();
 		objectPositions.Add(8, rosePositionWhenHeld);
 		objectPositions.Add(9, paperPositionWhenHeld);
 		objectPositions.Add(10, pillBottlePositionWhenHeld);
+		objectRotations.Add(8, roseRotationWhenHeld);
+		objectRotations.Add(9, paperRotationWhenHeld);
+		objectRotations.Add(10, pillRotationWhenHeld);
 		controllerIndex = (int)gameObject.transform.parent.gameObject.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
@@ -67,13 +70,17 @@ public class ObjectHandling : MonoBehaviour {
 			else {
 				intersectingObject.transform.parent = gameObject.transform.parent;
 				int objectKey = ConvertTagToInt(intersectingObject.tag);
-				intersectingObject.transform.localPosition = objectPositions[objectKey];
 				intersectingObject.GetComponent<Rigidbody>().useGravity = false;
 				intersectingObject.GetComponent<Rigidbody>().isKinematic = true;
 				if(objectKey != 1 && clock != null) {
 					clock.SetActive(true);
 					StartCoroutine(ClockSummoning(1, 5));
 				}
+				Vector3 temp;
+				objectPositions.TryGetValue(objectKey, out temp);
+				intersectingObject.transform.localPosition = temp;
+				objectRotations.TryGetValue(objectKey, out temp);
+				intersectingObject.transform.rotation = Quaternion.Euler(temp);
 			}
 		}
 	}
@@ -170,7 +177,7 @@ public class ObjectHandling : MonoBehaviour {
 		GameObject head = gameObject.transform.parent.parent.GetChild(2).gameObject;
 		Vortex theVortex = head.GetComponentInChildren<Vortex>();
 		float t = 0f;
-		AudioSource audio = head.GetComponent<AudioSource>();//gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
+		AudioSource audio = head.GetComponent<AudioSource>();
 		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
 		audio.Play();
 		SteamVR_Fade.View(new Color(110f / 255f, 101f / 255f, 212f / 255f, 1f), audio.clip.length / 2);

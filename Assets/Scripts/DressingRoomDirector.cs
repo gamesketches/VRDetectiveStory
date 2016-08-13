@@ -57,9 +57,20 @@ public class DressingRoomDirector : MonoBehaviour {
 		}
 	}
 
+	IEnumerator RotateCharacter(Animator character, Vector3 rotation) {
+		float t = 0;
+		while(t < 1) {
+			character.gameObject.transform.Rotate(rotation * Time.deltaTime);
+			t += Time.deltaTime;
+			yield return null;
+		}
+	}
+
 	// Sara walks in
 	IEnumerator Beat1() {
 		yield return new WaitForSeconds(8f);
+		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.24f, -8.53f)));
+		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, -90f, 0f)));
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-3.788f, 7.25f, -5.066f)));
 
 		// Sara looks around
@@ -72,15 +83,12 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	IEnumerator Beat2() {
-		float t = 0;
-		while(t < 1) {
-			sara.gameObject.transform.Rotate(new Vector3(0, -70, 0) * Time.deltaTime);
-			t += Time.deltaTime;
-			yield return null;
-		}
+		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, -70f, 0f)));
 		sara.SetInteger("animationId", 2);
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.23f, -4.745f)));
 		sara.SetInteger("animationId", 3);
+		yield return StartCoroutine(moveCharacter(anna, new Vector3(-4.194f, 7.24f, -8.53f)));
+		yield return StartCoroutine(RotateCharacter(anna, new Vector3(0f, -90f, 0f)));
 		yield return StartCoroutine(moveCharacter(anna, new Vector3(-4.384f, 7.25f, -5.448f)));
 		sara.gameObject.transform.Rotate(new Vector3(0, -90, 0));
 		Debug.Log("rotated");
@@ -144,7 +152,9 @@ public class DressingRoomDirector : MonoBehaviour {
 		sara.SetInteger("animationId", 8);
 		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
 		sara.SetInteger("animationId", 9);
-		yield return moveCharacter(sara,  new Vector3(-4.21f, 7.21f, -7.585f));
+		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.24f, -8.53f)));
+		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, 90f, 0f)));
+		yield return StartCoroutine(moveCharacter(sara, new Vector3(-6.87f, 7.24f, -8.53f)));
 	}
 
 	IEnumerator PlayDialogue() {

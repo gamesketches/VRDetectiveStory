@@ -29,6 +29,9 @@ public class SpiritGuideController : MonoBehaviour {
 		switch(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) {
 			case "theater":
 				visitedScenes[0] = true;
+				GameObject secondClue = GameObject.Find("SpiritGuideSecondClue");
+				transform.position = secondClue.transform.position;
+				transform.rotation = secondClue.transform.rotation;
 				break;
 			case "outside":
 				visitedScenes[1] = true;
@@ -124,6 +127,9 @@ public class SpiritGuideController : MonoBehaviour {
 	IEnumerator FlyingAway() {
 		animator.SetBool("flying", true);
 		float t = 0;
+		float f = 0;
+		Quaternion startRotation = transform.rotation;
+		Quaternion targetRotation = Quaternion.Euler(new Vector3(-90f, 31.2106f, 0f));
 		int flyAwayCopy = flyAwayTimes;
 		flyAwayTimes = -1;
 		Vector3 targetLocation = transform.position + (flyAwayVectors[flyAwayCopy] * 7);
@@ -133,8 +139,13 @@ public class SpiritGuideController : MonoBehaviour {
 			temp.y = Mathf.SmoothStep(startY, targetLocation.y, t);
 			transform.position = temp;
 			t += Time.deltaTime;
+			transform.rotation = Quaternion.Lerp(startRotation, targetRotation, f);
+			f += Time.deltaTime;
 			yield return null;
 		}
+
+		transform.rotation = startRotation;
+		animator.SetBool("flying", false);
 
 		flyAwayTimes = flyAwayCopy + 1;
 	}

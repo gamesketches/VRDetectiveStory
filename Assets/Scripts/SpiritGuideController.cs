@@ -8,8 +8,10 @@ public class SpiritGuideController : MonoBehaviour {
 	bool[] visitedScenes;
 	Vector3[] flyAwayVectors;
 	int flyAwayTimes;
+	Animator animator;
 	// Use this for initialization
 	void Start () {
+		animator = GetComponent<Animator>();
 		flyAwayVectors = new Vector3[2] {Vector3.up, Vector3.left};
 		flyAwayTimes = 0;
 		visitedScenes = new bool[3];
@@ -114,12 +116,13 @@ public class SpiritGuideController : MonoBehaviour {
 	}
 
 	public void FlyAway() {
-		if(flyAwayTimes >= 0 && flyAwayTimes <= flyAwayVectors.Length) {
+		if(!animator.GetBool("flying") && flyAwayTimes <= flyAwayVectors.Length) {
 			StartCoroutine(FlyingAway());
 		}
 	}
 
 	IEnumerator FlyingAway() {
+		animator.SetBool("flying", true);
 		float t = 0;
 		int flyAwayCopy = flyAwayTimes;
 		flyAwayTimes = -1;

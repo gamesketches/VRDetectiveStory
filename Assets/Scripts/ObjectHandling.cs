@@ -167,12 +167,12 @@ public class ObjectHandling : MonoBehaviour {
 
 	IEnumerator ChangeScene(string sceneName) {
 		float t = 0f;
-		SteamVR_Fade.Start(Color.black, 0f);
-		while(t < 1) {
-			// Apply image effect
-			t += Time.deltaTime;
-			yield return null;
-		}
+		AudioSource audio = gameObject.transform.parent.parent.GetChild(2).GetComponent<AudioSource>();
+		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
+		audio.Play();
+		SteamVR_Fade.View(Color.black, audio.clip.length);
+		yield return new WaitForSeconds(audio.clip.length);
 		SceneManager.LoadScene(sceneName);
+		SteamVR_Fade.View(Color.clear, 1f);
 	}
 }

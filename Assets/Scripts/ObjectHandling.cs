@@ -20,10 +20,10 @@ public class ObjectHandling : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		director = gameObject.transform.parent.transform.parent.GetComponent<Director>();
-		clock = gameObject.transform.GetChild(0).gameObject;
-		clock.SetActive(false);
 		if(SceneManager.GetActiveScene().name == "main") {
 			intersectingObject = null;
+			clock = gameObject.transform.GetChild(0).gameObject;
+			clock.SetActive(false);
 			}
 		objectPositions = new Dictionary<int, Vector3>();
 		objectPositions.Add(8, rosePositionWhenHeld);
@@ -51,7 +51,9 @@ public class ObjectHandling : MonoBehaviour {
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			if(intersectingObject.transform.parent != null) {
 				intersectingObject.transform.parent = null;
-				clock.SetActive(false);
+				if(clock != null) {
+					clock.SetActive(false);
+				}
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
 				intersectingObject.GetComponent<Rigidbody>().isKinematic = false;
 				StartCoroutine(ClockSummoning(5, 1));
@@ -67,7 +69,7 @@ public class ObjectHandling : MonoBehaviour {
 				intersectingObject.transform.localPosition = objectPositions[objectKey];
 				intersectingObject.GetComponent<Rigidbody>().useGravity = false;
 				intersectingObject.GetComponent<Rigidbody>().isKinematic = true;
-				if(objectKey != 1) {
+				if(objectKey != 1 && clock != null) {
 					clock.SetActive(true);
 					StartCoroutine(ClockSummoning(1, 5));
 				}

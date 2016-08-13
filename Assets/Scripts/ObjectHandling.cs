@@ -56,12 +56,12 @@ public class ObjectHandling : MonoBehaviour {
 				}
 				intersectingObject.GetComponent<Rigidbody>().useGravity = true;
 				intersectingObject.GetComponent<Rigidbody>().isKinematic = false;
-				StartCoroutine(ClockSummoning(5, 1));
 				if(ObjectHasSceneChangeTag()){//&& ConvertTagToInt(intersectingObject.tag) != director.layer) {
 					if(intersectingObject.tag == SceneManager.GetActiveScene().name) {
 					StartCoroutine(ChangeScene("main"));//SceneManager.LoadScene("main");//director.ChangeScene(0);//ConvertTagToInt(intersectingObject.tag));
 					}
 				}
+				StartCoroutine(ClockSummoning(5, 1));
 			}
 			else {
 				intersectingObject.transform.parent = gameObject.transform.parent;

@@ -15,6 +15,7 @@ public class DressingRoomDirector : MonoBehaviour {
 	Beat currentBeat;
 	bool switchingBeat;
 	GameObject pillBottle;
+	public Transform pillBottlePlacement;
 	// Use this for initialization
 	void Start () {
 		beatNumber = 0;
@@ -68,7 +69,7 @@ public class DressingRoomDirector : MonoBehaviour {
 
 	// Sara walks in
 	IEnumerator Beat1() {
-		yield return new WaitForSeconds(8f);
+		//yield return new WaitForSeconds(8f);
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.24f, -8.53f)));
 		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, -90f, 0f)));
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-3.788f, 7.25f, -5.066f)));
@@ -83,14 +84,14 @@ public class DressingRoomDirector : MonoBehaviour {
 	}
 
 	IEnumerator Beat2() {
-		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, -70f, 0f)));
+		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, -30f, 0f)));
 		sara.SetInteger("animationId", 2);
-		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.23f, -4.745f)));
+		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.174f, 7.23f, -4.346f)));
 		sara.SetInteger("animationId", 3);
 		yield return StartCoroutine(moveCharacter(anna, new Vector3(-4.194f, 7.24f, -8.53f)));
 		yield return StartCoroutine(RotateCharacter(anna, new Vector3(0f, -90f, 0f)));
 		yield return StartCoroutine(moveCharacter(anna, new Vector3(-4.384f, 7.25f, -5.448f)));
-		sara.gameObject.transform.Rotate(new Vector3(0, -90, 0));
+		sara.gameObject.transform.Rotate(new Vector3(0, -140, 0));
 		Debug.Log("rotated");
 		anna.SetInteger("animationId", 1);
 		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
@@ -104,19 +105,19 @@ public class DressingRoomDirector : MonoBehaviour {
 		AudioClip[] dialogueClips = Resources.LoadAll<AudioClip>("Dressing/Sound");
 
 		yield return StartCoroutine(PlayDialogue());
+		anna.SetInteger("animationId", 2);
 		pillBottle.SetActive(true);
 		pillBottle.transform.parent = anna.GetBoneTransform(HumanBodyBones.RightHand);
 		pillBottle.transform.localPosition = new Vector3(-0.059f, 0.073f, 0.001f);
 		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(286.4384f, 291.4244f, 232.6425f));
-		anna.SetInteger("animationId", 2);
 		yield return new WaitForSeconds(1);//anna.GetCurrentAnimatorStateInfo(0).length);
 		Debug.Log("initial dialogue over");
-		pillBottle.transform.parent = sara.GetBoneTransform(HumanBodyBones.RightHand);
-		pillBottle.transform.localPosition = new Vector3(-0.0488f, 0.0281f, 0.0294f);
-		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(72.52068f, 225.0405f, 46.9778f));
 		anna.SetInteger("animationId", 3);
 		sara.SetInteger("animationId", 4);
 		yield return new WaitForSeconds(1);//sara.GetCurrentAnimatorStateInfo(0).length);
+		pillBottle.transform.parent = sara.GetBoneTransform(HumanBodyBones.RightHand);
+		pillBottle.transform.localPosition = new Vector3(-0.0488f, 0.0281f, 0.0294f);
+		pillBottle.transform.localRotation = Quaternion.Euler(new Vector3(72.52068f, 225.0405f, 46.9778f));
 		sara.SetInteger("animationId", 5);
 		yield return StartCoroutine(PlayAudioFile(dialogueClips[3]));
 		yield return StartCoroutine(PlayAudioFile(dialogueClips[10]));
@@ -150,10 +151,12 @@ public class DressingRoomDirector : MonoBehaviour {
 		/*audio.clip = Resources.Load<AudioClip>("Dressing/Sound/spiritvoice10");
 		audio.Play();*/
 		sara.SetInteger("animationId", 8);
-		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(sara.GetCurrentAnimatorStateInfo(0).length / 3);
+		pillBottle.transform.parent = null;
+		pillBottle.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
 		sara.SetInteger("animationId", 9);
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-4.194f, 7.24f, -8.53f)));
-		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, 90f, 0f)));
+		yield return StartCoroutine(RotateCharacter(sara, new Vector3(0f, 70f, 0f)));
 		yield return StartCoroutine(moveCharacter(sara, new Vector3(-6.87f, 7.24f, -8.53f)));
 	}
 

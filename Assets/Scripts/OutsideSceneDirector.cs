@@ -81,7 +81,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		anna.SetBool("finished", true);
 		yield return null;
 		Vector3 startPosition = new Vector3(4.52f, 0.6f, -1.5f);
-		Vector3 endPosition = new Vector3(-8.32f, 0.6f, -6.08f);
+		Vector3 endPosition = new Vector3(-8.32f, 0.6f, -5.78f);
 		t = 0;
 		// Actually move model
 		while(t < 1) {
@@ -102,18 +102,21 @@ public class OutsideSceneDirector : MonoBehaviour {
 			t += Time.deltaTime;
 			yield return null;
 		}
-		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
+
 		beatNumber++;
 		switchingBeat = true;
 	}
 
 	IEnumerator Beat4() {
-		// Read animation would go here
-		anna.SetInteger("animationId", 3);
+		// Read animation would go here	
+		anna.SetInteger("animationId", 3);	
 		AnnaOutsideIKController ikController = anna.GetComponent<AnnaOutsideIKController>();
 		ikController.IKActive = true;
-		yield return new WaitForSeconds(8f);//anna.GetCurrentAnimatorStateInfo(0).length);
+		yield return new WaitForSeconds(0.99f);
+		ikController.targetObject.transform.parent = anna.GetBoneTransform(HumanBodyBones.RightHand);
 		ikController.IKActive = false;
+		ikController.targetObject.transform.localPosition = new Vector3 (-0.104f, 0.194f, 0.031f);
+		yield return new WaitForSeconds(anna.GetCurrentAnimatorStateInfo(0).length);
 		beatNumber++;
 		switchingBeat = true;
 	}
@@ -135,6 +138,15 @@ public class OutsideSceneDirector : MonoBehaviour {
 		stalker.SetInteger("animationId", 2);
 		audio.clip = Resources.Load<AudioClip>("outside/Sound/YouHaveAStalker");
 		audio.Play();
+		yield return new WaitForSeconds(4f);
+		startPosition = endPosition;
+		endPosition = new Vector3(-75.8f, 0.6f, -64.1f);
+		t = 0;
+		while(t < 1){
+			stalker.gameObject.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+			t += (Time.deltaTime / 4);
+			yield return null;
+		}
 		Debug.Log("spirit9");
 	}
 }

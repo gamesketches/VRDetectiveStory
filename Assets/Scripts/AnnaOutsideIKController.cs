@@ -6,8 +6,10 @@ public class AnnaOutsideIKController : MonoBehaviour {
 	protected Animator animator;
 	public Transform targetObject;
 	public bool IKActive = false;
+	float IKTime;
 	// Use this for initialization
 	void Start () {
+		IKTime = 0;
 		animator = GetComponent<Animator>();
 		targetObject = GameObject.Find("wholepaper").transform;
 	}
@@ -16,13 +18,15 @@ public class AnnaOutsideIKController : MonoBehaviour {
 		if(animator) {
 			if(IKActive) {
 				if(targetObject != null) {
+					//float weightValue = IKTime / animator.GetCurrentAnimatorStateInfo(0).length;
 					animator.SetLookAtWeight(1);
 					animator.SetLookAtPosition(targetObject.position);
 
-					animator.SetIKPositionWeight(AvatarIKGoal.RightHand,1);
-                    animator.SetIKRotationWeight(AvatarIKGoal.RightHand,1);  
+					animator.SetIKPositionWeight(AvatarIKGoal.RightHand,IKTime);
+                    animator.SetIKRotationWeight(AvatarIKGoal.RightHand,IKTime);  
                     animator.SetIKPosition(AvatarIKGoal.RightHand,targetObject.position);
                     animator.SetIKRotation(AvatarIKGoal.RightHand,targetObject.rotation);
+                    IKTime += Time.deltaTime;
 				}
 
 			}

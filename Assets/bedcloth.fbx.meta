@@ -1,20 +1,14 @@
 fileFormatVersion: 2
-guid: 9913b57da8db8400f99b0143056abd0b
-timeCreated: 1470244246
+guid: 7482fb934d1294988916efd276586a64
+timeCreated: 1471233193
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: nCloth1
-    100004: nucleus1
-    100006: pPlane1
     400000: //RootNode
-    400002: nCloth1
-    400004: nucleus1
-    400006: pPlane1
-    2300000: pPlane1
-    3300000: pPlane1
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: pPlane1
     9500000: //RootNode
   materials:
@@ -41,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 15
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

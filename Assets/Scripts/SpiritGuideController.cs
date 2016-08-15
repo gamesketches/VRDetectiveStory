@@ -11,6 +11,9 @@ public class SpiritGuideController : MonoBehaviour {
 	Animator animator;
 	// Use this for initialization
 	void Start () {
+		if(GameObject.FindGameObjectsWithTag("guide").Length > 1) {
+			Destroy(gameObject);
+		}
 		animator = GetComponent<Animator>();
 		flyAwayVectors = new Vector3[2] {Vector3.up, Vector3.left};
 		flyAwayTimes = 0;
@@ -29,22 +32,21 @@ public class SpiritGuideController : MonoBehaviour {
 		switch(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) {
 			case "theater":
 				visitedScenes[0] = true;
+				transform.position -= Vector3.down * 100;
 				break;
 			case "outside":
+				transform.position -= Vector3.down * 100;
 				visitedScenes[1] = true;
 				break;
 			case "dressing room":
 				visitedScenes[2] = true;
+				transform.position -= Vector3.down * 100;
 				break;
 			default:
-				if(visitedScenes[0] == true) {
+				if(visitedScenes[0] == true && !visitedScenes[1]) {
 					GameObject secondClue = GameObject.Find("SpiritGuideSecondClue");
 					transform.position = secondClue.transform.position;
 					transform.rotation = secondClue.transform.rotation;
-				}
-				Debug.Log("main Scene");
-				foreach(bool sceneFlag in visitedScenes) {
-					Debug.Log(sceneFlag);
 				}
 				break;
 		}

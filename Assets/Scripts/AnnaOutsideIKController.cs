@@ -18,7 +18,6 @@ public class AnnaOutsideIKController : MonoBehaviour {
 		if(animator) {
 			if(IKActive) {
 				if(targetObject != null) {
-					//float weightValue = IKTime / animator.GetCurrentAnimatorStateInfo(0).length;
 					animator.SetLookAtWeight(1);
 					animator.SetLookAtPosition(targetObject.position);
 

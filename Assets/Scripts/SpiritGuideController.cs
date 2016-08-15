@@ -43,7 +43,7 @@ public class SpiritGuideController : MonoBehaviour {
 				transform.position -= Vector3.down * 100;
 				break;
 			default:
-				if(visitedScenes[0] == true && !visitedScenes[1]) {
+				if(visitedScenes[0] == true && visitedScenes[1] == false) {
 					GameObject secondClue = GameObject.Find("SpiritGuideSecondClue");
 					transform.position = secondClue.transform.position;
 					transform.rotation = secondClue.transform.rotation;

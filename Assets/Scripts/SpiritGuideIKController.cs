@@ -8,7 +8,7 @@ public class SpiritGuideIKController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
-		target = GameObject.Find("Camera (eye)");
+		target = GameObject.Find("Camera (eye)").transform;
 	}
 
 	void OnAnimatorIK() {

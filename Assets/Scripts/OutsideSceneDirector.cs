@@ -86,7 +86,7 @@ public class OutsideSceneDirector : MonoBehaviour {
 		// Actually move model
 		while(t < 1) {
 			anna.gameObject.transform.position = Vector3.Lerp(startPosition, endPosition, t);
-			t += (Time.deltaTime / 3);
+			t += (Time.deltaTime / 6);
 			yield return null;
 		}
 		beatNumber++;

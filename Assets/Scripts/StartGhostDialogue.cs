@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
 
 public class StartGhostDialogue : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class StartGhostDialogue : MonoBehaviour {
 		if(spiritGuideController.CheckGameOverState()){
 			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/endingSpeech");//dialogue[dialogue.Length - 1];
 			audio.Play();
+			StartCoroutine (FadeOutTransition ());
 		}
 		else if(spiritGuideController.flags["outside"] && spiritGuideController.flags["theater"]) {
 			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/OnYourBed");
@@ -68,6 +70,22 @@ public class StartGhostDialogue : MonoBehaviour {
 			else {
 				lookedAtObjectForTime = 0;
 			}
+		}
+	}
+
+	IEnumerator FadeOutTransition() {
+		yield return new WaitForSeconds (audio.clip.length);
+		GameObject head = GameObject.Find ("Camera (head)");//gameObject.transform.parent.parent.GetChild(2).gameObject;
+		Vortex theVortex = head.GetComponentInChildren<Vortex>();
+		float t = 0f;
+		audio.clip = Resources.Load<AudioClip>("Apartment/Sound/clockbell");
+		audio.Play();
+		SteamVR_Fade.View(new Color(110f / 255f, 101f / 255f, 212f / 255f, 1f), audio.clip.length / 2);
+		while(t < audio.clip.length) {
+			float newRad = Mathf.SmoothStep(0f, 0.5f, t / audio.clip.length);
+			theVortex.radius = new Vector2(newRad, newRad);
+			t += Time.deltaTime;
+			yield return null;
 		}
 	}
 }

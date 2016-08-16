@@ -174,7 +174,7 @@ public class ObjectHandling : MonoBehaviour {
 	}
 
 	IEnumerator ChangeScene(string sceneName) {
-		GameObject head = gameObject.transform.parent.parent.GetChild(2).gameObject;
+		GameObject head = GameObject.Find ("Camera (head)");//gameObject.transform.parent.parent.GetChild(2).gameObject;
 		Vortex theVortex = head.GetComponentInChildren<Vortex>();
 		float t = 0f;
 		AudioSource audio = head.GetComponent<AudioSource>();

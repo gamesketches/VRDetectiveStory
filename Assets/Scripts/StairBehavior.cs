@@ -32,10 +32,12 @@ public class StairBehavior : MonoBehaviour {
 			if(deltaY < centerY) {//if(targetY > deltaY) {
 				deltaY = dif;
 				foreach(GameObject obj in sceneObjects) {
-				Vector3 temp = obj.transform.position;
-				temp.y = temp.y - dif;
-				//obj.transform.position = temp;
-				StartCoroutine(StairMovement(obj.transform, temp));
+				if(obj != null) {
+					Vector3 temp = obj.transform.position;
+					temp.y = temp.y - dif;
+					//obj.transform.position = temp;
+					StartCoroutine(StairMovement(obj.transform, temp));
+					}
 			}
 			}
 			else {//if(targetY < deltaY) {

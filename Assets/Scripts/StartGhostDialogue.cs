@@ -20,6 +20,10 @@ public class StartGhostDialogue : MonoBehaviour {
 			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/endingSpeech");//dialogue[dialogue.Length - 1];
 			audio.Play();
 		}
+		else if(spiritGuideController.flags["outside"] && spiritGuideController.flags["theater"]) {
+			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/OnYourBed");
+			audio.Play();
+		}
 		else if(spiritGuideController.flags["theater"]){
 			audio.clip = Resources.Load<AudioClip>("Apartment/Sound/StartExploring");
 			audio.Play();

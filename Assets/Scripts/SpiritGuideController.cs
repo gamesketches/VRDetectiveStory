@@ -21,6 +21,7 @@ public class SpiritGuideController : MonoBehaviour {
 		flags = new Dictionary<string,bool>();
 		flags.Add("bed", false);
 		flags.Add("theater", false);
+		flags.Add("outside", false);
 		visitedScenes[0] = false;
 		visitedScenes[1] = false;
 		visitedScenes[2] = false;
@@ -33,8 +34,10 @@ public class SpiritGuideController : MonoBehaviour {
 			case "theater":
 				visitedScenes[0] = true;
 				transform.position -= Vector3.down * 100;
+				flags["theater"] = true;
 				break;
 			case "outside":
+				flags["outside"] = true;
 				transform.position -= Vector3.down * 100;
 				visitedScenes[1] = true;
 				break;
@@ -151,7 +154,7 @@ public class SpiritGuideController : MonoBehaviour {
 		transform.rotation = startRotation;
 		animator.SetBool("flying", false);
 
-		flyAwayTimes = flyAwayCopy + 1;
+		flyAwayTimes = flyAwayCopy + 5;
 	}
 
 	void GameOver() {
